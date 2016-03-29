@@ -1,8 +1,6 @@
 ﻿#pragma strict
 
 private var nextFire : float;
-private var ThrustParticleFar : GameObject;
-private var ParticleTrail : GameObject;
 private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
 

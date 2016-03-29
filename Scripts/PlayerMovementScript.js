@@ -3,16 +3,15 @@
 private var speed : float = 40;
 private var rotationSpeed : float = 2.5;
 
-private var ParticleThrustL : GameObject;
-private var ParticleThrustR : GameObject;
+private var gameController : GameControllerScript;
+
+public var ParticleThrustL : GameObject;
+public var ParticleThrustR : GameObject;
 
 function Start () {
 
-	ParticleThrustL = GameObject.Find("ParticleThrustL");
-	ParticleThrustR = GameObject.Find("ParticleThrustR");
-
-	ParticleThrustL.GetComponent.<ParticleSystem>().Stop();
-	ParticleThrustR.GetComponent.<ParticleSystem>().Stop();
+	//--find gameController so we can call functions
+	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 }
 
 function Update () {
