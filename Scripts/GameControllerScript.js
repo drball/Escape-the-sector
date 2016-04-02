@@ -43,6 +43,10 @@ function Update () {
 				
 		}	
 	}
+
+	if (Input.GetKeyDown ("1")){
+
+	}
 	
 }
 
@@ -94,11 +98,24 @@ function IncreaseScore(amt : int) {
 
 function GoToLevel(destination:String){
 
+	Debug.Log("going to level "+destination);
+
+	HideAllLevels();
+
 	//--save score so we can use it next level
-	PlayerPrefs.SetInt("score", score);
+//	PlayerPrefs.SetInt("score", score);
 	
 	//--switch level
-	Application.LoadLevel (destination);
+//	Application.LoadLevel (destination);
+}
+
+function HideAllLevels() {
+
+	Debug.Log("hiding all levels");
+
+	Level1.SetActive(false);
+	Level2.SetActive(false);
+
 }
 
 function UpdateScore(){

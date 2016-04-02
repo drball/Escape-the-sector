@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 private var speed : float = 40;
-private var rotationSpeed : float = 2.5;
+private var rotationSpeed : float = 10;//2.5;
 
 private var gameController : GameControllerScript;
 
