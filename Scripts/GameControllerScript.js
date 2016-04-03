@@ -5,8 +5,11 @@ static var isPaused : boolean = false;
 private var DialogueCanvas : Canvas;
 private var DialogueTextbox : Text;
 private var scoreText : Text;
+private var currentLevel : int;
+private var maxLevels : int; 
 public var score : int = 0;
 public var hello : String;
+public var levels : GameObject[];
 
 function Start () {
 		
@@ -15,6 +18,8 @@ function Start () {
 //		Resources.Load("DialogueCanvas", Canvas));
 
 		hello = "howdy";
+
+		currentLevel = 1;
 
 //	DialogueCanvas.GetComponent(Canvas).enabled = false;
 	
@@ -45,7 +50,8 @@ function Update () {
 	}
 
 	if (Input.GetKeyDown ("1")){
-
+	Debug.Log("pressing1");
+		GoToLevel(1);
 	}
 	
 }
@@ -96,26 +102,30 @@ function IncreaseScore(amt : int) {
 	
 }
 
-function GoToLevel(destination:String){
+function GoToLevel(destination:int){
 
 	Debug.Log("going to level "+destination);
 
 	HideAllLevels();
+
+	//--show loading spinner
 
 	//--save score so we can use it next level
 //	PlayerPrefs.SetInt("score", score);
 	
 	//--switch level
 //	Application.LoadLevel (destination);
+	levels[destination].SetActive(true);
 }
 
 function HideAllLevels() {
 
 	Debug.Log("hiding all levels");
 
-	Level1.SetActive(false);
-	Level2.SetActive(false);
-
+	for(var theLevel : GameObject in levels){
+		Debug.Log("hiding level "+theLevel.name);
+		theLevel.SetActive(false);
+	}
 }
 
 function UpdateScore(){
