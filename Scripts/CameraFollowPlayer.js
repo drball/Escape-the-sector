@@ -12,12 +12,10 @@ private var dz : float;
 
 
 function Start () {
-//    dx = transform.position.x - target.transform.position.x;
-//    dy = transform.position.y - target.transform.position.y;
-    dz = transform.position.z - target.transform.position.z;
-    dx = transform.position.x - target.transform.position.x;
 
-//	dx =  transform.position.x;
+	dx = transform.position.x - target.transform.position.x;
+    dz = transform.position.z - target.transform.position.z;
+
     dy =  transform.position.y;
 
 //    cameraDistance = Vector3.Distance(target.transform.position, transform.position);
@@ -37,6 +35,6 @@ function FixedUpdate () {
 
 function Update () {
 	//--to lerp to the object smoothly
-
-	transform.position = Vector3.Lerp(transform.position, Vector3(target.transform.position.x + dx, dy, target.transform.position.z + dz), followSpeed * Time.deltaTime);
+//	transform.position = Vector3.Lerp(transform.position, Vector3(target.transform.position.x + dx, dy, target.transform.position.z + dz), followSpeed * Time.deltaTime);
+	transform.position = Vector3.Lerp(transform.position, Vector3(target.transform.position.x, dy, target.transform.position.z), followSpeed * Time.deltaTime);
 }
