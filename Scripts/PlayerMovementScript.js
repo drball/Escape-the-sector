@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 private var speed : float = 140;
-private var rotationSpeed : float = 10;//2.5;
+private var rotationSpeed : float = 20;//2.5;
 
 private var gameController : GameControllerScript;
 
@@ -27,12 +27,12 @@ function FixedUpdate () {
     
 		if((moveHorizontal < 0) || Input.GetKey("a"))
 		{
-			GetComponent.<Rigidbody>().AddRelativeTorque (0,-rotationSpeed,0);
+			GetComponent.<Rigidbody>().AddTorque (0,-rotationSpeed,0);
 
 
 		} else if((moveHorizontal > 0) || Input.GetKey("d"))
 		{
-			GetComponent.<Rigidbody>().AddRelativeTorque (0,rotationSpeed,0);
+			GetComponent.<Rigidbody>().AddTorque (0,rotationSpeed,0);
 
 		} 
 		
@@ -53,6 +53,8 @@ function FixedUpdate () {
 			ParticleThrustL.GetComponent.<ParticleSystem>().emissionRate = 0;
 			ParticleThrustR.GetComponent.<ParticleSystem>().emissionRate = 0;
 		}
+
+		// Debug.Log("speed = "+GetComponent.<Rigidbody>().velocity.magnitude);
 		
 		//var vel = GetComponent.<Rigidbody>().velocity; 
 		//var speed = vel.magnitude;

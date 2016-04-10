@@ -3,13 +3,16 @@
 private var nextFire : float;
 private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
-
 private var bulletDelay : float = 0.4;
+// private var collider : Collider;
+
+public var Vfx : GameObject;
+public var isAlive : boolean = true;
 
 function Start () {
 	
 
-	fireFrom = transform.Find("FireFrom").gameObject; //--find child object
+	// fireFrom = transform.Find("FireFrom").gameObject; //--find child object
 	
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -26,7 +29,6 @@ function Start () {
 function FixedUpdate () {
 
 
-    
     if(gameController.isPaused == false){
     	
 		//FIRE WEAPON
@@ -37,6 +39,10 @@ function FixedUpdate () {
 				Vector3(fireFrom.transform.position.x,0,fireFrom.transform.position.z), 
 				transform.rotation);
 		}
+
+		if(Input.GetKey("r")) {
+			PlayerReset();
+		}
 		
 		//var vel = GetComponent.<Rigidbody>().velocity; 
 		//var speed = vel.magnitude;
@@ -45,6 +51,15 @@ function FixedUpdate () {
 	
 }
 
+
+
+function PlayerDie(){
+	isAlive = false;
+}
+
+function PlayerReset() {
+	isAlive = true;
+}
 
 
 

@@ -5,13 +5,17 @@ static var isPaused : boolean = false;
 private var DialogueCanvas : Canvas;
 private var DialogueTextbox : Text;
 private var scoreText : Text;
-private var currentLevel : int;
 private var maxLevels : int; 
+private var Player : GameObject;
+private var StartLocationObj : GameObject;
+private var currentLevel : int;
 public var score : int = 0;
 public var hello : String;
 public var levels : GameObject[];
 
 function Start () {
+
+	Player = GameObject.Find("Player");
 		
 	//--create the dialogue, but initially disable it
 //	var DialogueCanvas : Canvas = Instantiate(
@@ -33,6 +37,8 @@ function Start () {
 //	}
 	//scoreText.text = score.ToString();
 //	UpdateScore();
+
+	GoToLevel(1);
 }
 
 function Update () {
@@ -58,64 +64,31 @@ function Update () {
 
 
 
-function ShowDialogue (dialogueText : String) {
-
-	Debug.Log("Show dialogue");
-	
-	var DialogueInstance = GameObject.FindGameObjectWithTag("Dialogue");
-	GameObject.Find("DialogueTextBox").GetComponent.<Text>().text = dialogueText;
-	
-	DialogueInstance.GetComponent(Canvas).enabled = true;
-	
-	//--show correct avatar
-	GameObject.Find("AvatarDefault").GetComponent.<Image>().enabled = true;
-	GameObject.Find("AvatarPlayer").GetComponent.<Image>().enabled = false;
-	
-	yield WaitForSeconds (3);
-	
-	DialogueInstance.GetComponent(Canvas).enabled = false;
-	
-}
-
-function ShowPlayerDialogue (dialogueText : String) {
-
-	Debug.Log("Show player dialogue");
-	
-	var DialogueInstance = GameObject.FindGameObjectWithTag("Dialogue");
-	GameObject.Find("DialogueTextBox").GetComponent.<Text>().text = dialogueText;
-	
-	DialogueInstance.GetComponent(Canvas).enabled = true;
-
-	//--show correct avatar
-	GameObject.Find("AvatarDefault").GetComponent.<Image>().enabled = false;
-	GameObject.Find("AvatarPlayer").GetComponent.<Image>().enabled = true;
-	
-	yield WaitForSeconds (3);
-	
-	DialogueInstance.GetComponent(Canvas).enabled = false;
-	
-}
-
-function IncreaseScore(amt : int) {
-	score += amt;
-	UpdateScore();
-	
-}
-
 function GoToLevel(destination:int){
 
-	Debug.Log("going to level "+destination);
-
 	HideAllLevels();
+
+	currentLevel = destination;
 
 	//--show loading spinner
 
 	//--save score so we can use it next level
 //	PlayerPrefs.SetInt("score", score);
+
+	Debug.Log("going to level "+destination);
 	
 	//--switch level
 //	Application.LoadLevel (destination);
-	levels[destination].SetActive(true);
+	levels[destination - 1].SetActive(true);
+
+	//--move player to start location
+	StartLocationObj = levels[destination - 1].Find("StartDummy");
+	Player.transform.position = Vector3(
+		StartLocationObj.transform.position.x, 
+		0, 
+		StartLocationObj.transform.position.z
+	);
+
 }
 
 function HideAllLevels() {
@@ -128,17 +101,18 @@ function HideAllLevels() {
 	}
 }
 
-function UpdateScore(){
+// function UpdateScore(){
 
-	//--updates the score label top right
-	scoreText.text = score.ToString();
+// 	//--updates the score label top right
+// 	scoreText.text = score.ToString();
 	
-}
+// }
 
 
 function PauseGame (action : boolean) {
 
-	if((action == true) && isPaused != true){
+	if((action == true) && isPaused != true)
+	{
 		Debug.Log("pause game");
 		isPaused = true;
 		Time.timeScale = 0.0;
@@ -149,4 +123,12 @@ function PauseGame (action : boolean) {
 	}
 }
 
+function ExitLevel () {
+	//--player has reached exit
 
+	Player.SetActive(false);
+
+	//--start next level
+	Debug.Log("exiting level "+currentLevel);
+	GoToLevel(currentLevel++);
+}
