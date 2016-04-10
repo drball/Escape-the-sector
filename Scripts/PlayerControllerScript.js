@@ -4,6 +4,7 @@ private var nextFire : float;
 private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
 private var bulletDelay : float = 0.4;
+private var rb: Rigidbody;
 // private var collider : Collider;
 
 public var Vfx : GameObject;
@@ -18,6 +19,8 @@ function Start () {
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 
 	Debug.Log("hello = "+gameController.hello);
+
+	rb = GetComponent.<Rigidbody>();
 
 
 	// Accelerate out of the last portal
@@ -51,14 +54,19 @@ function FixedUpdate () {
 	
 }
 
-
-
 function PlayerDie(){
 	isAlive = false;
 }
 
 function PlayerReset() {
 	isAlive = true;
+	gameObject.SetActive(true);
+
+	rb.velocity = Vector3.zero;
+	rb.angularVelocity = Vector3.zero;
+
+	// transform.position = playerStartPos;
+	// transform.rotation = playerStartRotation;
 }
 
 

@@ -7,6 +7,7 @@ private var DialogueTextbox : Text;
 private var scoreText : Text;
 private var maxLevels : int; 
 private var Player : GameObject;
+private var PlayerScript : PlayerControllerScript;
 private var StartLocationObj : GameObject;
 private var currentLevel : int;
 public var score : int = 0;
@@ -16,6 +17,7 @@ public var levels : GameObject[];
 function Start () {
 
 	Player = GameObject.Find("Player");
+	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 		
 	//--create the dialogue, but initially disable it
 //	var DialogueCanvas : Canvas = Instantiate(
@@ -89,6 +91,8 @@ function GoToLevel(destination:int){
 		StartLocationObj.transform.position.z
 	);
 
+	PlayerScript.PlayerReset();
+
 }
 
 function HideAllLevels() {
@@ -129,6 +133,6 @@ function ExitLevel () {
 	Player.SetActive(false);
 
 	//--start next level
-	Debug.Log("exiting level "+currentLevel);
-	GoToLevel(currentLevel++);
+	currentLevel++;
+	GoToLevel(currentLevel);
 }
