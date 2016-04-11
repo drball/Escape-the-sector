@@ -5,6 +5,7 @@ private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
 private var bulletDelay : float = 0.4;
 private var rb: Rigidbody;
+private var startYPos : float;
 // private var collider : Collider;
 
 public var Vfx : GameObject;
@@ -21,6 +22,8 @@ function Start () {
 	Debug.Log("hello = "+gameController.hello);
 
 	rb = GetComponent.<Rigidbody>();
+
+	startYPos = transform.position.y;
 
 
 	// Accelerate out of the last portal
@@ -64,6 +67,13 @@ function PlayerReset() {
 
 	rb.velocity = Vector3.zero;
 	rb.angularVelocity = Vector3.zero;
+
+	//--move player to start location
+	transform.position = Vector3(
+		gameController.StartLocationObj.transform.position.x, 
+		0, 
+		gameController.StartLocationObj.transform.position.z
+	);
 
 	// transform.position = playerStartPos;
 	// transform.rotation = playerStartRotation;

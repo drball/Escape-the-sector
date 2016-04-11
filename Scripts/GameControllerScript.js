@@ -8,8 +8,8 @@ private var scoreText : Text;
 private var maxLevels : int; 
 private var Player : GameObject;
 private var PlayerScript : PlayerControllerScript;
-private var StartLocationObj : GameObject;
-private var currentLevel : int;
+public var StartLocationObj : GameObject;
+public var currentLevel : int;
 public var score : int = 0;
 public var hello : String;
 public var levels : GameObject[];
@@ -83,13 +83,13 @@ function GoToLevel(destination:int){
 //	Application.LoadLevel (destination);
 	levels[destination - 1].SetActive(true);
 
-	//--move player to start location
+	//--set the start location of this level
 	StartLocationObj = levels[destination - 1].Find("StartDummy");
-	Player.transform.position = Vector3(
-		StartLocationObj.transform.position.x, 
-		0, 
-		StartLocationObj.transform.position.z
-	);
+	// Player.transform.position = Vector3(
+	// 	StartLocationObj.transform.position.x, 
+	// 	0, 
+	// 	StartLocationObj.transform.position.z
+	// );
 
 	PlayerScript.PlayerReset();
 
