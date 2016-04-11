@@ -71,7 +71,7 @@ function PlayerReset() {
 	//--move player to start location
 	transform.position = Vector3(
 		gameController.StartLocationObj.transform.position.x, 
-		0, 
+		startYPos, 
 		gameController.StartLocationObj.transform.position.z
 	);
 
