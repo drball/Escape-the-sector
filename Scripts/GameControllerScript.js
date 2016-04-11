@@ -8,22 +8,22 @@ private var scoreText : Text;
 private var maxLevels : int; 
 private var Player : GameObject;
 private var PlayerScript : PlayerControllerScript;
+private var TimerScript : TimerScript;
 public var StartLocationObj : GameObject;
 public var currentLevel : int;
 public var score : int = 0;
-public var hello : String;
 public var levels : GameObject[];
 
 function Start () {
 
 	Player = GameObject.Find("Player");
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
+	TimerScript = GetComponent.<TimerScript>();
 		
 	//--create the dialogue, but initially disable it
 //	var DialogueCanvas : Canvas = Instantiate(
 //		Resources.Load("DialogueCanvas", Canvas));
 
-		hello = "howdy";
 
 		currentLevel = 1;
 
@@ -68,6 +68,7 @@ function Update () {
 
 function GoToLevel(destination:int){
 
+	//--hide all level gameObjects so we can show only one
 	HideAllLevels();
 
 	currentLevel = destination;
@@ -80,18 +81,18 @@ function GoToLevel(destination:int){
 	Debug.Log("going to level "+destination);
 	
 	//--switch level
-//	Application.LoadLevel (destination);
 	levels[destination - 1].SetActive(true);
 
 	//--set the start location of this level
 	StartLocationObj = levels[destination - 1].Find("StartDummy");
-	// Player.transform.position = Vector3(
-	// 	StartLocationObj.transform.position.x, 
-	// 	0, 
-	// 	StartLocationObj.transform.position.z
-	// );
 
 	PlayerScript.PlayerReset();
+
+	//--fade in 
+
+	yield WaitForSeconds(1);
+
+	TimerScript.StartTimer();
 
 }
 

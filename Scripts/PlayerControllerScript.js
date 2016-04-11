@@ -19,8 +19,6 @@ function Start () {
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 
-	Debug.Log("hello = "+gameController.hello);
-
 	rb = GetComponent.<Rigidbody>();
 
 	startYPos = transform.position.y;
