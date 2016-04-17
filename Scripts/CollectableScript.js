@@ -40,6 +40,9 @@ function OnTriggerEnter(other: Collider)
 		//--hide for now 
 	    vfxObj.SetActive(false);
 	    isCollectable = false;
+
+	    //--increase score 
+	    gameController.IncreaseScore();
 	    
 	 //    yield WaitForSeconds (10);
 	    

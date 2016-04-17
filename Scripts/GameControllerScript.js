@@ -74,6 +74,17 @@ function Update () {
 	
 }
 
+function StartLevel () {
+
+	//--reset things. We might be starting from scratch, starting new level, or restarting level
+	score = 0;
+
+	PlayerScript.PlayerReset();
+
+	yield WaitForSeconds(1);
+
+	TimerScript.StartTimer();
+}
 
 
 function GoToLevel(destination:int) {
@@ -96,13 +107,9 @@ function GoToLevel(destination:int) {
 	//--set the start location of this level
 	StartLocationObj = levels[destination - 1].Find("StartDummy");
 
-	PlayerScript.PlayerReset();
-
 	//--fade in 
 
-	yield WaitForSeconds(1);
-
-	TimerScript.StartTimer();
+	StartLevel();
 
 }
 
@@ -118,8 +125,6 @@ function HideAllLevels() {
 	}
 }
 
-
-
 function PauseGame (action : boolean) {
 
 	if((action == true) && isPaused != true)
@@ -134,6 +139,10 @@ function PauseGame (action : boolean) {
 	}
 }
 
+function IncreaseScore() {
+	score++;
+}
+
 function LevelCompleted () {
 	//--player has reached exit. Show options
 
@@ -143,9 +152,9 @@ function LevelCompleted () {
 
 	TimerScript.PauseTimer();
 
-	var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
+	// var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
 
-	LevelCompletedText.GetComponent.<Text>().text = secondsRemainingText;
+	LevelCompletedText.GetComponent.<Text>().text = "COLLECTED : "+score+" / 3";
 
 	// Debug.Log("text "+LevelCompletedText.GetComponent.<Text>().text);
 
