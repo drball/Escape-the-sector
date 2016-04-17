@@ -2,19 +2,25 @@
 import UnityEngine.UI;
 
 static var isPaused : boolean = false;
-private var DialogueCanvas : Canvas;
-private var DialogueTextbox : Text;
-private var scoreText : Text;
+// private var DialogueCanvas : Canvas;
+// private var DialogueTextbox : Text;
+
+//--variables
 private var maxLevels : int; 
-private var Player : GameObject;
-private var PlayerScript : PlayerControllerScript;
-private var TimerScript : TimerScript;
 public var StartLocationObj : GameObject;
 public var currentLevel : int;
 public var score : int = 0;
+
+//--objects
+private var scoreText : Text;
+private var Player : GameObject;
 public var levels : GameObject[];
 public var EndDialog : GameObject;
 public var LevelCompletedText : GameObject;
+
+//--scripts
+private var PlayerScript : PlayerControllerScript;
+private var TimerScript : TimerScript;
 
 function Start () {
 
@@ -29,8 +35,7 @@ function Start () {
 	//--hide all dialogs
 	EndDialog.SetActive(false);
 
-
-		currentLevel = 1;
+	currentLevel = 1;
 
 //	DialogueCanvas.GetComponent(Canvas).enabled = false;
 	
@@ -49,6 +54,7 @@ function Start () {
 }
 
 function Update () {
+
 	if (Input.GetKeyDown ("p"))
 	{
 		if(isPaused == false) {
@@ -58,12 +64,11 @@ function Update () {
 		} else {
 			Destroy(GameObject.Find("PausedCanvas(Clone)"));
 			PauseGame(false);
-				
 		}	
 	}
 
 	if (Input.GetKeyDown ("1")){
-	Debug.Log("pressing1");
+		Debug.Log("pressing1");
 		GoToLevel(1);
 	}
 	
@@ -71,7 +76,7 @@ function Update () {
 
 
 
-function GoToLevel(destination:int){
+function GoToLevel(destination:int) {
 
 	//--hide all level gameObjects so we can show only one
 	HideAllLevels();
@@ -103,6 +108,8 @@ function GoToLevel(destination:int){
 
 function HideAllLevels() {
 
+	//--when changing level, all other levels need to be hidden
+
 	Debug.Log("hiding all levels");
 
 	for(var theLevel : GameObject in levels){
@@ -111,12 +118,6 @@ function HideAllLevels() {
 	}
 }
 
-// function UpdateScore(){
-
-// 	//--updates the score label top right
-// 	scoreText.text = score.ToString();
-	
-// }
 
 
 function PauseGame (action : boolean) {
@@ -134,11 +135,13 @@ function PauseGame (action : boolean) {
 }
 
 function LevelCompleted () {
-	//--player has reached exit
+	//--player has reached exit. Show options
 
 	Player.SetActive(false);
 
 	EndDialog.SetActive(true);
+
+	TimerScript.PauseTimer();
 
 	var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
 
@@ -146,7 +149,18 @@ function LevelCompleted () {
 
 	// Debug.Log("text "+LevelCompletedText.GetComponent.<Text>().text);
 
-	//--start next level
-	//currentLevel++;
-	//GoToLevel(currentLevel);
 }
+
+function ContinueSelected () {
+
+	//--player has completed level, & has chosen to continue to next level
+
+	//--hide dialog
+	EndDialog.SetActive(false);
+
+	//--go to next level
+	currentLevel++;
+	GoToLevel(currentLevel);
+}
+
+
