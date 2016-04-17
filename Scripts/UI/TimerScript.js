@@ -5,6 +5,7 @@ public var minutes : float = 5;
 public var seconds : float = 0;
 public var textObj : GameObject;
 public var timerActive : boolean = false;
+public var timeRemaining : String;
 
 private var miliseconds : float = 0;
 private var timerText : Text;
@@ -34,10 +35,8 @@ function Update(){
 		miliseconds -= Time.deltaTime * 100;
 	}
              
-	
-
-	//Debug.Log(String.Format("{0:00}:{1:00}", minutes, seconds));
-	timerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
+	timeRemaining = String.Format("{0:00}:{1:00}", minutes, seconds);
+	timerText.text = timeRemaining;
 }
 
 function StartTimer (){

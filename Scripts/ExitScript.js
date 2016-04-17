@@ -46,6 +46,6 @@ function OnTriggerEnter(other: Collider) {
 		
 		// gameController.GoToLevel(destination);	
 
-		gameController.ExitLevel();
+		gameController.LevelCompleted();
 	}
 }

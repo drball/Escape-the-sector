@@ -13,6 +13,8 @@ public var StartLocationObj : GameObject;
 public var currentLevel : int;
 public var score : int = 0;
 public var levels : GameObject[];
+public var EndDialog : GameObject;
+public var LevelCompletedText : GameObject;
 
 function Start () {
 
@@ -23,6 +25,9 @@ function Start () {
 	//--create the dialogue, but initially disable it
 //	var DialogueCanvas : Canvas = Instantiate(
 //		Resources.Load("DialogueCanvas", Canvas));
+
+	//--hide all dialogs
+	EndDialog.SetActive(false);
 
 
 		currentLevel = 1;
@@ -128,12 +133,20 @@ function PauseGame (action : boolean) {
 	}
 }
 
-function ExitLevel () {
+function LevelCompleted () {
 	//--player has reached exit
 
 	Player.SetActive(false);
 
+	EndDialog.SetActive(true);
+
+	var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
+
+	LevelCompletedText.GetComponent.<Text>().text = secondsRemainingText;
+
+	// Debug.Log("text "+LevelCompletedText.GetComponent.<Text>().text);
+
 	//--start next level
-	currentLevel++;
-	GoToLevel(currentLevel);
+	//currentLevel++;
+	//GoToLevel(currentLevel);
 }
