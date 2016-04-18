@@ -4,6 +4,7 @@ private var speed : float = 140;
 private var rotationSpeed : float = 20;//2.5;
 
 private var gameController : GameControllerScript;
+private var PlayerController : PlayerControllerScript;
 
 public var ParticleThrustL : GameObject;
 public var ParticleThrustR : GameObject;
@@ -12,6 +13,7 @@ function Start () {
 
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+	PlayerController = GetComponent.<PlayerControllerScript>();
 }
 
 function Update () {
@@ -20,10 +22,10 @@ function Update () {
 
 function FixedUpdate () {
 
-	var moveHorizontal : float= Input.GetAxis ("Horizontal");
-    var moveVertical : float= Input.GetAxis ("Vertical");
+	var moveHorizontal : float = Input.GetAxis ("Horizontal");
+    var moveVertical : float = Input.GetAxis ("Vertical");
     
-    if(gameController.isPaused == false){
+    if(gameController.isPaused == false && PlayerController.isAlive == true){
     
 		if((moveHorizontal < 0) || Input.GetKey("a"))
 		{

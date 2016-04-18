@@ -10,12 +10,14 @@ private var maxLevels : int;
 public var StartLocationObj : GameObject;
 public var currentLevel : int;
 public var score : int = 0;
+private var maxCollectables : int = 3;
 
 //--objects
 private var scoreText : Text;
 private var Player : GameObject;
 public var levels : GameObject[];
-public var EndDialog : GameObject;
+public var CompleteLevelDialog : GameObject;
+public var FailLevelDialog : GameObject;
 public var LevelCompletedText : GameObject;
 
 //--scripts
@@ -33,7 +35,8 @@ function Start () {
 //		Resources.Load("DialogueCanvas", Canvas));
 
 	//--hide all dialogs
-	EndDialog.SetActive(false);
+	CompleteLevelDialog.SetActive(false);
+	FailLevelDialog.SetActive(false);
 
 	currentLevel = 1;
 
@@ -148,13 +151,13 @@ function LevelCompleted () {
 
 	Player.SetActive(false);
 
-	EndDialog.SetActive(true);
+	CompleteLevelDialog.SetActive(true);
 
 	TimerScript.PauseTimer();
 
 	// var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
 
-	LevelCompletedText.GetComponent.<Text>().text = "COLLECTED : "+score+" / 3";
+	LevelCompletedText.GetComponent.<Text>().text = ": "+score+" / "+maxCollectables;
 
 	// Debug.Log("text "+LevelCompletedText.GetComponent.<Text>().text);
 
@@ -165,11 +168,36 @@ function ContinueSelected () {
 	//--player has completed level, & has chosen to continue to next level
 
 	//--hide dialog
-	EndDialog.SetActive(false);
+	CompleteLevelDialog.SetActive(false);
 
 	//--go to next level
 	currentLevel++;
 	GoToLevel(currentLevel);
+}
+
+function PlayAgainSelected() {
+	//-- player has failed the level and is trying again
+	Debug.Log("clicked playing again");
+	FailLevelDialog.SetActive(false);
+
+	GoToLevel(currentLevel);
+}
+
+function LevelFailed () {
+	//--when the time runs out & the player hasn't reached the exit
+
+	Debug.Log("level failed");
+
+	PlayerScript.PlayerDie();
+
+	//--flash the timer
+
+	//--explode the player
+
+	//--show failure dialog
+	yield WaitForSeconds(1);
+	FailLevelDialog.SetActive(true);
+
 }
 
 

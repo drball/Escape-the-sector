@@ -6,6 +6,7 @@ public var seconds : float = 0;
 public var textObj : GameObject;
 public var timerActive : boolean = false;
 public var timeRemaining : String;
+private var gameController : GameControllerScript;
 
 private var miliseconds : float = 0;
 private var timerText : Text;
@@ -15,6 +16,8 @@ function Start() {
 	timerText = textObj.GetComponent.<Text>();
 
 	timerActive = false;
+
+	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 }
          
 function Update(){
@@ -37,6 +40,14 @@ function Update(){
              
 	timeRemaining = String.Format("{0:00}:{1:00}", minutes, seconds);
 	timerText.text = timeRemaining;
+
+
+
+	if(seconds <= 0 && minutes <= 0 && miliseconds <= 0){
+		Debug.Log("timer out, stopping");
+		timerActive = false;
+		gameController.LevelFailed();
+	}
 }
 
 function StartTimer (){
