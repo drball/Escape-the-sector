@@ -1,4 +1,6 @@
 ﻿#pragma strict
+import UnityEngine.UI;
+import UnityEngine.SceneManagement;
 
 /* ====================================================
 Load a level when any key pressed
@@ -18,18 +20,21 @@ function Start() {
 
 	IntroTextObj.SetActive(true);
 
-	FadingScript.BeginFade(1);
-
 }
 
+
+public function StartBtnPressed() {
+
+	FadingScript.BeginFade(1);
+
+	LoadGameScene();
+}
 
 
 function LoadGameScene () {
 
-	FadingScript.BeginFade(1);
-
 	yield WaitForSeconds(2);
 
-	Application.LoadLevel("Main");
+	SceneManager.LoadScene("Main");
 
 }

@@ -1,15 +1,24 @@
 ﻿#pragma strict
 
 
-public var minutes : float = 5;
-public var seconds : float = 0;
+public var minutes : int;
+public var seconds : int;
 public var textObj : GameObject;
 public var timerActive : boolean = false;
 public var timeRemaining : String;
-private var gameController : GameControllerScript;
+// public var flashing : boolean = false;
 
+private var gameController : GameControllerScript;
 private var miliseconds : float = 0;
 private var timerText : Text;
+private var startMinutes : int;
+private var startSeconds : int;
+
+
+function Awake() {
+	startMinutes = minutes;
+	startSeconds = seconds;
+}
 
 function Start() {
 
@@ -18,6 +27,7 @@ function Start() {
 	timerActive = false;
 
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+
 }
          
 function Update(){
@@ -43,7 +53,7 @@ function Update(){
 
 
 
-	if(seconds <= 0 && minutes <= 0 && miliseconds <= 0){
+	if(seconds <= 0 && minutes <= 0 && miliseconds <= 0 && timerActive == true){
 		Debug.Log("timer out, stopping");
 		timerActive = false;
 		gameController.LevelFailed();
@@ -51,9 +61,16 @@ function Update(){
 }
 
 function StartTimer (){
+	Debug.Log("start the timer");
 	timerActive = true;
 }
 
 function PauseTimer () {
 	timerActive = false;
+}
+
+function ResetTimer () {
+	Debug.Log("reset timer");
+	minutes = startMinutes;
+	seconds = startSeconds;
 }

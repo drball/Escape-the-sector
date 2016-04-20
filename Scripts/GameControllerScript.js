@@ -34,15 +34,15 @@ function Start () {
 //	var DialogueCanvas : Canvas = Instantiate(
 //		Resources.Load("DialogueCanvas", Canvas));
 
-	//--hide all dialogs
-	CompleteLevelDialog.SetActive(false);
-	FailLevelDialog.SetActive(false);
-
+	
 	currentLevel = 1;
+
+	ResetLevel();
+
+	
 
 //	DialogueCanvas.GetComponent(Canvas).enabled = false;
 	
-	Debug.Log("starting. score = "+score);
 //	scoreText = GameObject.Find("ScoreText").GetComponent.<Text>();
 	
 	//--load the score if there is one
@@ -53,7 +53,6 @@ function Start () {
 	//scoreText.text = score.ToString();
 //	UpdateScore();
 
-	GoToLevel(1);
 }
 
 function Update () {
@@ -146,20 +145,24 @@ function IncreaseScore() {
 	score++;
 }
 
+function ExitReached() {
+	if(PlayerScript.isAlive == true) {
+		LevelCompleted();
+	}
+}
+
 function LevelCompleted () {
 	//--player has reached exit. Show options
 
-	Player.SetActive(false);
+	TimerScript.PauseTimer();
+
+	PlayerScript.HideVFX();
+
+	yield WaitForSeconds(2);
 
 	CompleteLevelDialog.SetActive(true);
 
-	TimerScript.PauseTimer();
-
-	// var secondsRemainingText = "WITH "+TimerScript.timeRemaining+" REMAINING";
-
 	LevelCompletedText.GetComponent.<Text>().text = ": "+score+" / "+maxCollectables;
-
-	// Debug.Log("text "+LevelCompletedText.GetComponent.<Text>().text);
 
 }
 
@@ -178,9 +181,8 @@ function ContinueSelected () {
 function PlayAgainSelected() {
 	//-- player has failed the level and is trying again
 	Debug.Log("clicked playing again");
-	FailLevelDialog.SetActive(false);
 
-	GoToLevel(currentLevel);
+	ResetLevel();
 }
 
 function LevelFailed () {
@@ -200,4 +202,14 @@ function LevelFailed () {
 
 }
 
+function ResetLevel () {
+
+	//--hide all dialogs
+	CompleteLevelDialog.SetActive(false);
+	FailLevelDialog.SetActive(false);
+
+	GoToLevel(currentLevel);
+
+	TimerScript.ResetTimer();
+}
 

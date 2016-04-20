@@ -6,6 +6,7 @@ private var gameController : GameControllerScript;
 private var bulletDelay : float = 0.4;
 private var rb: Rigidbody;
 private var startYPos : float;
+private var rotationInitial : Vector3;
 // private var collider : Collider;
 
 public var Vfx : GameObject;
@@ -59,9 +60,14 @@ function PlayerDie(){
 	isAlive = false;
 }
 
+function HideVFX(){
+	Vfx.SetActive(false);
+}
+
 function PlayerReset() {
 	isAlive = true;
 	gameObject.SetActive(true);
+	Vfx.SetActive(true);
 
 	rb.velocity = Vector3.zero;
 	rb.angularVelocity = Vector3.zero;
