@@ -79,6 +79,8 @@ function PlayerReset() {
 		gameController.StartLocationObj.transform.position.z
 	);
 
+	transform.rotation = gameController.StartLocationObj.transform.rotation;
+
 	// transform.position = playerStartPos;
 	// transform.rotation = playerStartRotation;
 }
