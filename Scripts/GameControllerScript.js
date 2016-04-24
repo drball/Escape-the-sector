@@ -30,28 +30,10 @@ function Start () {
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
 		
-	//--create the dialogue, but initially disable it
-//	var DialogueCanvas : Canvas = Instantiate(
-//		Resources.Load("DialogueCanvas", Canvas));
-
-	
 	currentLevel = 1;
 
 	ResetLevel();
 
-	
-
-//	DialogueCanvas.GetComponent(Canvas).enabled = false;
-	
-//	scoreText = GameObject.Find("ScoreText").GetComponent.<Text>();
-	
-	//--load the score if there is one
-//	if(PlayerPrefs.GetInt("score")){
-//		score = PlayerPrefs.GetInt("score");
-//		Debug.Log("loaded existing score");
-//	}
-	//scoreText.text = score.ToString();
-//	UpdateScore();
 
 }
 
@@ -184,6 +166,8 @@ function PlayAgainSelected() {
 
 	ResetLevel();
 }
+
+
 
 function LevelFailed () {
 	//--when the time runs out & the player hasn't reached the exit

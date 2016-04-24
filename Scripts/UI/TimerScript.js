@@ -5,14 +5,16 @@ public var minutes : int;
 public var seconds : int;
 public var textObj : GameObject;
 public var timerActive : boolean = false;
-public var timeRemaining : String;
+public var timeRemaining : String; //--human readable output
 // public var flashing : boolean = false;
 
 private var gameController : GameControllerScript;
 private var miliseconds : float = 0;
 private var timerText : Text;
-private var startMinutes : int;
+private var startMinutes : int; 
 private var startSeconds : int;
+private var endStatus: int = 0; //--used to flash when near end
+private var BlinkScript : BlinkUI;
 
 
 function Awake() {
@@ -27,6 +29,8 @@ function Start() {
 	timerActive = false;
 
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+
+	BlinkScript = textObj.GetComponent.<BlinkUI>();
 
 }
          
@@ -52,11 +56,27 @@ function Update(){
 	timerText.text = timeRemaining;
 
 
+	if(minutes <= 0 && timerActive == true){
+		//-- when timer nears to end
+		if(seconds <= 10 && endStatus < 1){
+			endStatus = 1;
+			Debug.Log("timer nears to end");
+			BlinkScript.StartBlinking();
+		}
 
-	if(seconds <= 0 && minutes <= 0 && miliseconds <= 0 && timerActive == true){
-		Debug.Log("timer out, stopping");
-		timerActive = false;
-		gameController.LevelFailed();
+		//--when timer is REALLY near to end
+		if(seconds <= 5 && endStatus < 2){
+			endStatus = 2;
+			Debug.Log("timer REALLY near to end");
+		}
+
+		//--when timer runs out
+		if(seconds <= 0){
+			Debug.Log("timer out, stopping");
+			timerActive = false;
+			BlinkScript.StopBlinking();
+			gameController.LevelFailed();
+		}
 	}
 }
 
@@ -73,4 +93,5 @@ function ResetTimer () {
 	Debug.Log("reset timer");
 	minutes = startMinutes;
 	seconds = startSeconds;
+	endStatus = 0;
 }
