@@ -24,6 +24,8 @@ function Awake() {
 
 function Start() {
 
+	textObj = GameObject.Find("TimerText");
+
 	timerText = textObj.GetComponent.<Text>();
 
 	timerActive = false;
@@ -33,6 +35,7 @@ function Start() {
 	BlinkScript = textObj.GetComponent.<BlinkUI>();
 
 }
+
          
 function Update(){
 
@@ -87,6 +90,12 @@ function StartTimer (){
 
 function PauseTimer () {
 	timerActive = false;
+	
+}
+
+function EndTimer () {
+	PauseTimer();
+	BlinkScript.StopBlinking();
 }
 
 function ResetTimer () {

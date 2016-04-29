@@ -136,7 +136,7 @@ function ExitReached() {
 function LevelCompleted () {
 	//--player has reached exit. Show options
 
-	TimerScript.PauseTimer();
+	TimerScript.EndTimer();
 
 	PlayerScript.HideVFX();
 
