@@ -16,6 +16,8 @@ function Start () {
 	
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	// fadingScript = gameControllerObj.GetComponent.<FadingScript>();
+
+	
 	
 }
 
