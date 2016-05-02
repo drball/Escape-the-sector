@@ -1,5 +1,7 @@
 ﻿#pragma strict
 
+//--shakes the camera - BUT doesn't work well when camera is following player
+
 public var customIntensity : float = .11;
 public var customDecay : float = 0.005;
 

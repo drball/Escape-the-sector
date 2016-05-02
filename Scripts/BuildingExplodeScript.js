@@ -7,6 +7,7 @@ public var ExpObj3 : GameObject;
 public var ExpObj4 : GameObject;
 public var BuildingNormal : GameObject;
 public var BuildingDestroyed : GameObject;
+public var Particles : GameObject;
 
 private var CameraShakeScript : CameraShakeScript;
 
@@ -18,8 +19,9 @@ function Start () {
 	ExpObj3.SetActive(false);
 	ExpObj4.SetActive(false);
 	BuildingDestroyed.SetActive(false);
+	Particles.SetActive(false);
 
-	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
+	// CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 }
 
 function Update () {
@@ -39,7 +41,7 @@ function DoAnimation(){
 	//--show explosions
 	ExpObj1.SetActive(true);
 
-	CameraShakeScript.Shake();
+	// CameraShakeScript.Shake();
 
 	yield WaitForSeconds (0.1);
 
@@ -47,6 +49,8 @@ function DoAnimation(){
 
 	//--hide laser beam
 	BeamObj.SetActive(false);
+
+	Particles.SetActive(true);
 
 	yield WaitForSeconds (0.3);
 
