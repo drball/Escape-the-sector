@@ -101,7 +101,7 @@ function HideAllLevels() {
 
 	//--when changing level, all other levels need to be hidden
 
-	Debug.Log("hiding all levels");
+	// Debug.Log("hiding all levels");
 
 	for(var theLevel : GameObject in levels){
 		Debug.Log("hiding level "+theLevel.name);

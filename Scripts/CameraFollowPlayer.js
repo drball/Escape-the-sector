@@ -18,7 +18,7 @@ function Awake () {
 
     dy =  transform.position.y;
 
-    Debug.Log("dx = "+dx);
+    // Debug.Log("dx = "+dx);
 
 //    cameraDistance = Vector3.Distance(target.transform.position, transform.position);
 }

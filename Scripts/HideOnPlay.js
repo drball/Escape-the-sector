@@ -6,7 +6,7 @@
 function Start () {
 	//--hide from view
 	GetComponent.<MeshRenderer>().enabled = false;
-	Debug.Log("hide!");
+	// Debug.Log("hide!");
 }
 
 function Update () {

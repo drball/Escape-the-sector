@@ -18,6 +18,7 @@ function OnGUI () {
  
 function Update(){
    if(shake_intensity > 0){
+      originPosition = transform.position;
       transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
       transform.rotation = Quaternion(
       originRotation.x + Random.Range(-shake_intensity,shake_intensity)*.2,
@@ -29,7 +30,7 @@ function Update(){
 }
  
 function Shake(){
-   originPosition = transform.position;
+   // originPosition = transform.position;
    originRotation = transform.rotation;
    shake_intensity = customIntensity;
    shake_decay = customDecay;

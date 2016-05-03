@@ -1,5 +1,6 @@
 ﻿#pragma strict
 
+public var SecondsCountdown : int; //--amount of seconds until this blows
 public var BeamObj : GameObject;
 public var ExpObj1 : GameObject;
 public var ExpObj2 : GameObject;
@@ -12,7 +13,7 @@ public var Particles : GameObject;
 private var CameraShakeScript : CameraShakeScript;
 
 
-function Start () {
+function Awake () {
 	BeamObj.SetActive(false);
 	ExpObj1.SetActive(false);
 	ExpObj2.SetActive(false);
@@ -21,17 +22,30 @@ function Start () {
 	BuildingDestroyed.SetActive(false);
 	Particles.SetActive(false);
 
-	// CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
+	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
+
+	
 }
 
-function Update () {
-	if(Input.GetKey("e")) {
-		Debug.Log("esplode!");
-		DoAnimation();
-	}
+function Start(){
+	Invoke("CountdownFinished", SecondsCountdown);
 }
 
-function DoAnimation(){
+// function Update () {
+// 	if(Input.GetKey("e")) {
+// 		Debug.Log("esplode!");
+// 		DoAnimation();
+// 	}
+// }
+
+function CountdownFinished(){
+	//--this has the be called from another function apparently - probably because it contains yields?
+	doAnimation();
+}
+
+function doAnimation(){
+
+	Debug.Log("esplode!");
 
 	//--show laser beam
 	BeamObj.SetActive(true);
@@ -41,7 +55,7 @@ function DoAnimation(){
 	//--show explosions
 	ExpObj1.SetActive(true);
 
-	// CameraShakeScript.Shake();
+	CameraShakeScript.Shake();
 
 	yield WaitForSeconds (0.1);
 
@@ -50,6 +64,7 @@ function DoAnimation(){
 	//--hide laser beam
 	BeamObj.SetActive(false);
 
+	//--create particle debris
 	Particles.SetActive(true);
 
 	yield WaitForSeconds (0.3);
@@ -66,7 +81,7 @@ function DoAnimation(){
 
 	//--make explosion noise
 
-	//--create particle debris
+	
 
 	
 }
