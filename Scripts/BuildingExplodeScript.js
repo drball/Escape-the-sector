@@ -11,7 +11,8 @@ public var BuildingDestroyed : GameObject;
 public var Particles : GameObject;
 
 private var CameraShakeScript : CameraShakeScript;
-
+private var objRenderer  : Renderer;
+private var isVisible : boolean;
 
 function Awake () {
 	BeamObj.SetActive(false);
@@ -29,6 +30,8 @@ function Awake () {
 
 function Start(){
 	Invoke("CountdownFinished", SecondsCountdown);
+
+	objRenderer = BuildingNormal.GetComponent.<MeshRenderer>();
 }
 
 // function Update () {
@@ -45,29 +48,36 @@ function CountdownFinished(){
 
 function doAnimation(){
 
-	Debug.Log("esplode!");
+	isVisible = objRenderer.isVisible;
 
-	//--show laser beam
-	BeamObj.SetActive(true);
+	Debug.Log("esplode! is visible = "+isVisible);
 
-	yield WaitForSeconds (0.1);
+	//--if visible, show the fancy explosions, if not, just show dead building
 
-	//--show explosions
-	ExpObj1.SetActive(true);
+	if(isVisible){
 
-	CameraShakeScript.Shake();
+		//--show laser beam
+		BeamObj.SetActive(true);
 
-	yield WaitForSeconds (0.1);
+		yield WaitForSeconds (0.1);
 
-	ExpObj2.SetActive(true);
+		//--show explosions
+		ExpObj1.SetActive(true);
 
-	//--hide laser beam
-	BeamObj.SetActive(false);
+		CameraShakeScript.Shake();
 
-	//--create particle debris
-	Particles.SetActive(true);
+		yield WaitForSeconds (0.1);
 
-	yield WaitForSeconds (0.3);
+		ExpObj2.SetActive(true);
+
+		//--hide laser beam
+		BeamObj.SetActive(false);
+
+		//--create particle debris
+		Particles.SetActive(true);
+
+		yield WaitForSeconds (0.3);
+	}
 
 	//--swap building for destroyed
 	BuildingNormal.SetActive(false);
