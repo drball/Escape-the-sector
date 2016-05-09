@@ -10,11 +10,11 @@ private var originRotation:Quaternion;
 private var shake_decay: float;
 private var shake_intensity: float;
  
-function OnGUI () {
-   if (GUI.Button (Rect (20,40,80,20), "Shake")) {
-      Shake();
-   }
-}
+// function OnGUI () {
+//    if (GUI.Button (Rect (20,40,80,20), "Shake")) {
+//       Shake();
+//    }
+// }
  
 function Update(){
    if(shake_intensity > 0){

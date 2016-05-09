@@ -30,7 +30,7 @@ function Start () {
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
 		
-	currentLevel = 1;
+	currentLevel = 3;
 
 	ResetLevel();
 

@@ -1,3 +1,7 @@
+/* ==========================================================
+Adds functionality in the editor to group selected objects
+============================================================= */
+
 using UnityEditor;
 using UnityEngine;
 
