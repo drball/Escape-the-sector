@@ -21,8 +21,11 @@ function Awake () {
 	ExpObj2.SetActive(false);
 	ExpObj3.SetActive(false);
 	ExpObj4.SetActive(false);
-	BuildingDestroyed.SetActive(false);
 	Particles.SetActive(false);
+
+	if (BuildingDestroyed) {
+		BuildingDestroyed.SetActive(false);
+	}
 
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 }
@@ -76,9 +79,14 @@ function doAnimation(){
 	}
 
 	//--swap building for destroyed
-	BuildingNormal.SetActive(false);
-	BuildingDestroyed.SetActive(true);
-
+	if(BuildingNormal){
+		BuildingNormal.SetActive(false);
+	}
+	
+	if(BuildingNormal) {
+		BuildingDestroyed.SetActive(true);
+	}
+	
 	ExpObj3.SetActive(true);
 
 	yield WaitForSeconds (0.3);
