@@ -7,7 +7,7 @@ public class DisableByTime : MonoBehaviour
 	
 	void Start ()
 	{
-		Debug.Log(gameObject+" is being disabled");
+		// Debug.Log(gameObject+" is being disabled");
 		gameObject.SetActive(false);
 	}
 }

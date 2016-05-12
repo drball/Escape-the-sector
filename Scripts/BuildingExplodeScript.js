@@ -9,6 +9,7 @@ public var ExpObj4 : GameObject;
 public var BuildingNormal : GameObject;
 public var BuildingDestroyed : GameObject;
 public var Particles : GameObject;
+public var ExplodeInView : boolean; //--only explode when close to player
 
 private var CameraShakeScript : CameraShakeScript;
 private var objRenderer  : Renderer;
@@ -24,22 +25,17 @@ function Awake () {
 	Particles.SetActive(false);
 
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
-
-	
 }
 
 function Start(){
-	Invoke("CountdownFinished", SecondsCountdown);
+
+	if(!ExplodeInView) {
+		Invoke("CountdownFinished", SecondsCountdown);
+	}
 
 	objRenderer = BuildingNormal.GetComponent.<MeshRenderer>();
 }
 
-// function Update () {
-// 	if(Input.GetKey("e")) {
-// 		Debug.Log("esplode!");
-// 		DoAnimation();
-// 	}
-// }
 
 function CountdownFinished(){
 	//--this has the be called from another function apparently - probably because it contains yields?
@@ -50,7 +46,7 @@ function doAnimation(){
 
 	isVisible = objRenderer.isVisible;
 
-	Debug.Log("esplode! is visible = "+isVisible);
+	// Debug.Log("esplode! is visible = "+isVisible);
 
 	//--if visible, show the fancy explosions, if not, just show dead building
 
@@ -92,6 +88,11 @@ function doAnimation(){
 	//--make explosion noise
 
 	
+}
 
-	
+function BecomeVisible() {
+	//--objecgt is now visible
+	Debug.Log("visible - now explode");
+
+	Invoke("CountdownFinished", SecondsCountdown);
 }
