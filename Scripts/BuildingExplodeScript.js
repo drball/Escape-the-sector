@@ -83,7 +83,7 @@ function doAnimation(){
 		BuildingNormal.SetActive(false);
 	}
 	
-	if(BuildingNormal) {
+	if(BuildingDestroyed) {
 		BuildingDestroyed.SetActive(true);
 	}
 	
