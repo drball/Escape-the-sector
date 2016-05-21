@@ -14,6 +14,7 @@ public var ExplodeInView : boolean; //--only explode when close to player
 private var CameraShakeScript : CameraShakeScript;
 private var objRenderer  : Renderer;
 private var isVisible : boolean;
+private var explodeSfx : AudioSource;
 
 function Awake () {
 	BeamObj.SetActive(false);
@@ -37,6 +38,8 @@ function Start(){
 	}
 
 	objRenderer = BuildingNormal.GetComponent.<MeshRenderer>();
+
+	explodeSfx = GetComponent.<AudioSource>();
 }
 
 
@@ -63,6 +66,8 @@ function doAnimation(){
 		//--show explosions
 		ExpObj1.SetActive(true);
 
+		explodeSfx.Play();
+
 		CameraShakeScript.Shake();
 
 		yield WaitForSeconds (0.1);
@@ -86,12 +91,15 @@ function doAnimation(){
 	if(BuildingDestroyed) {
 		BuildingDestroyed.SetActive(true);
 	}
+
+	if(isVisible){
 	
-	ExpObj3.SetActive(true);
+		ExpObj3.SetActive(true);
 
-	yield WaitForSeconds (0.3);
+		yield WaitForSeconds (0.3);
 
-	ExpObj4.SetActive(true);
+		ExpObj4.SetActive(true);
+	}
 
 	//--make explosion noise
 

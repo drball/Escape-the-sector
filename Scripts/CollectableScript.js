@@ -6,16 +6,15 @@ For a collectable object which comes back later
 
 private var gameController : GameControllerScript;
 private var isCollectable : boolean = true;
-
-var vfxObj : GameObject;
-// var collectionSfx : AudioSource;
+private var collectionSfx : AudioSource;
+public var vfxObj : GameObject;
 
 
 function Start () {
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	
-	// collectionSfx = GetComponent.<AudioSource>();
+	collectionSfx = GetComponent.<AudioSource>();
 
 }
 
@@ -25,7 +24,7 @@ function OnTriggerEnter(other: Collider)
 
 	if (other.tag == "Player" && isCollectable)
 	{
-	    // collectionSfx.Play();
+	    collectionSfx.Play();
 
 	    Debug.Log("player hit collectable");
 	    
