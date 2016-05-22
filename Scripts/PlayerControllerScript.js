@@ -61,7 +61,17 @@ function PlayerDie(){
 }
 
 function HideVFX(){
+	//--hide the player on exit
 	Vfx.SetActive(false);
+
+	isAlive = false;
+
+	//--replace player with sparks
+	var sparkInstance : GameObject = Instantiate(Resources.Load("ExitSparks", GameObject),
+			Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z), 
+			Quaternion.Euler(-90, 0, 0));
+
+	Destroy(sparkInstance,1);
 }
 
 function PlayerReset() {
