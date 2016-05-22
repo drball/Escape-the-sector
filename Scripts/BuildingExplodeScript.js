@@ -66,6 +66,7 @@ function doAnimation(){
 		//--show explosions
 		ExpObj1.SetActive(true);
 
+		//--make explosion sound
 		explodeSfx.Play();
 
 		CameraShakeScript.Shake();
@@ -99,9 +100,18 @@ function doAnimation(){
 		yield WaitForSeconds (0.3);
 
 		ExpObj4.SetActive(true);
+
+		yield WaitForSeconds (1);
+
+		//--make sure everything's set to false
+		ExpObj1.SetActive(false);
+		ExpObj2.SetActive(false);
+		ExpObj3.SetActive(false);
+		ExpObj4.SetActive(false);
+		Particles.SetActive(false);
+
 	}
 
-	//--make explosion noise
 
 	
 }

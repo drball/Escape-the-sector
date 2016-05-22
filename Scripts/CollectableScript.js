@@ -32,13 +32,14 @@ function OnTriggerEnter(other: Collider)
 	    
 	    var sparkInstance : GameObject = Instantiate(Resources.Load("CollectionSparks", GameObject),
 			Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z), 
-			transform.rotation);
+			Quaternion.Euler(-90, 0, 0));
 			
 		Destroy(sparkInstance,1);
 		
 		//--hide for now 
 	    vfxObj.SetActive(false);
 	    isCollectable = false;
+	    Destroy(gameObject,2);
 
 	    //--increase score 
 	    gameController.IncreaseScore();
