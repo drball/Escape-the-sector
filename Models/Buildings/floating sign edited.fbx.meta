@@ -1,19 +1,39 @@
 fileFormatVersion: 2
-guid: 8d353c2bb389140009ea8f25d16bff4b
-timeCreated: 1464042186
+guid: 868f03e6f83684d94bc50727fb2b5786
+timeCreated: 1464623322
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: default
+    100000: floating sign
     100002: //RootNode
-    400000: default
+    100004: floating sign.001
+    100006: floating sign.002
+    100008: face
+    100010: rim
+    400000: floating sign
     400002: //RootNode
-    2300000: default
-    3300000: default
-    4300000: default
+    400004: floating sign.001
+    400006: floating sign.002
+    400008: face
+    400010: rim
+    2300000: floating sign
+    2300002: floating sign.001
+    2300004: floating sign.002
+    2300006: face
+    2300008: rim
+    3300000: floating sign
+    3300002: floating sign.001
+    3300004: floating sign.002
+    3300006: face
+    3300008: rim
+    4300000: floating sign.002
+    4300002: floating sign.001
+    4300004: floating sign
+    4300006: rim
+    4300008: face
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -36,12 +56,12 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

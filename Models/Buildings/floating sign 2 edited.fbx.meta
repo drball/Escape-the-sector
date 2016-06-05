@@ -1,19 +1,29 @@
 fileFormatVersion: 2
-guid: 8d353c2bb389140009ea8f25d16bff4b
-timeCreated: 1464042186
+guid: 53a46de3a8e2e444b9cfb8832f9e8790
+timeCreated: 1464633397
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: default
-    100002: //RootNode
+    100002: face01
+    100004: //RootNode
+    100006: frame
     400000: default
-    400002: //RootNode
+    400002: face01
+    400004: //RootNode
+    400006: frame
     2300000: default
+    2300002: face01
+    2300004: frame
     3300000: default
+    3300002: face01
+    3300004: frame
     4300000: default
+    4300002: face01
+    4300004: frame
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -36,7 +46,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

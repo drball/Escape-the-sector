@@ -5,14 +5,20 @@ For a collectable object which comes back later
 ======================================================= */
 
 private var gameController : GameControllerScript;
+private var collectionController : CollectionController;
 private var isCollectable : boolean = true;
 private var collectionSfx : AudioSource;
 public var vfxObj : GameObject;
+public var ConstantParticles : GameObject;
+public var isKey : boolean;
+public var isSpecial : boolean;
 
 
 function Start () {
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+
+	collectionController = GameObject.Find("GameController").GetComponent.<CollectionController>();
 	
 	collectionSfx = GetComponent.<AudioSource>();
 
@@ -39,27 +45,42 @@ function OnTriggerEnter(other: Collider)
 		//--hide for now 
 	    vfxObj.SetActive(false);
 	    isCollectable = false;
-	    Destroy(gameObject,2);
 
-	    //--increase score 
-	    gameController.IncreaseScore();
-	    
-	 //    yield WaitForSeconds (10);
-	    
-		// vfxObj.SetActive(true);
-		
-		// //--come back and blink for a bit
-		
-		// var blinkingAmt : int = 0;
-		
-		// while(blinkingAmt < 6) {
-	 //        yield WaitForSeconds(0.1);
-	 //        vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
-	 //        blinkingAmt++;
-	 //    }
-	 //    vfxObj.GetComponent.<Renderer>().enabled = true;
-	 //    isCollectable = true;
-	    
+	    if(ConstantParticles) {
+	    	ConstantParticles.GetComponent.<ParticleSystem>().emissionRate = 0;
+
+	    	//--let game controller know we're at special status
+	    	collectionController.SetSpecialStatus();
+	    }
+
+	    if (isKey) {
+			yield WaitForSeconds (3);
+
+			ReactivateCollectable();
+	    } else {
+	    	//--increase score 
+	    	gameController.IncreaseScore();
+
+	    	Destroy(gameObject,2);
+	    }
+ 
 	}
 
+}
+
+function ReactivateCollectable() {
+
+	vfxObj.SetActive(true);
+	
+	//--come back and blink for a bit
+	
+	var blinkingAmt : int = 0;
+	
+	while(blinkingAmt < 6) {
+        yield WaitForSeconds(0.1);
+        vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
+        blinkingAmt++;
+    }
+    vfxObj.GetComponent.<Renderer>().enabled = true;
+    isCollectable = true;
 }
