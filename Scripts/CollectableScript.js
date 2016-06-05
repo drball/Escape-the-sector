@@ -54,7 +54,7 @@ function OnTriggerEnter(other: Collider)
 	    }
 
 	    if (isKey) {
-			yield WaitForSeconds (3);
+			yield WaitForSeconds (20);
 
 			ReactivateCollectable();
 	    } else {

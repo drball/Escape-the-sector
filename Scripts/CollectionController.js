@@ -19,3 +19,16 @@ function SetSpecialStatus() {
 	SpecialStatusParticles.SetActive(true);
 
 }
+
+function RemoveSpecialStatus() {
+	specialStatus = false;
+
+	SpecialStatusParticles.GetComponent.<ParticleSystem>().emissionRate = 0;
+
+	//--hide particles
+	yield WaitForSeconds(2);
+	SpecialStatusParticles.SetActive(false);
+
+
+
+}
