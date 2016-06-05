@@ -12,6 +12,7 @@ public var beamMaterial : Material;
 public var isOpen : boolean;
 private var beamWidth: float = 0.01;
 private var beamWidthMax : float = 2.2;
+private var showBeam: boolean = false;
 
 function Start () {
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -35,6 +36,8 @@ function OnTriggerEnter(other: Collider)
 	if (other.tag == "Player" && !isOpen)
 	{
 		isOpen = true;
+
+		showBeam = true;
 
 		collectionController.RemoveSpecialStatus();
 
@@ -73,13 +76,16 @@ function OpenGate(){
 
 
 function Update() {
-	var lineRenderer : LineRenderer = GetComponent.<LineRenderer>();
+	if(showBeam) {
+		var lineRenderer : LineRenderer = GetComponent.<LineRenderer>();
 
-	lineRenderer.SetPosition(0, Player.transform.position);
-	lineRenderer.SetPosition(1, GateCube.transform.position);	
-	lineRenderer.SetWidth(beamWidth, beamWidth);
+		lineRenderer.SetPosition(0, Player.transform.position);
+		lineRenderer.SetPosition(1, GateCube.transform.position);	
+		lineRenderer.SetWidth(beamWidth, beamWidth);
 
-	if(beamWidth < beamWidthMax) {
-		beamWidth += 0.1;
+		if(beamWidth < beamWidthMax) {
+			beamWidth += 0.2;
+		}
 	}
+
 }
