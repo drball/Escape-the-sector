@@ -11,8 +11,10 @@ public var beamMaterial : Material;
 //---variables 
 public var isOpen : boolean;
 private var beamWidth: float = 0.01;
-private var beamWidthMax : float = 2.2;
+private var beamWidthMax : float = 0.85;
 private var showBeam: boolean = false;
+private var lineRenderer : LineRenderer;
+private var forcefieldRenderer : MeshRenderer;
 
 function Start () {
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -21,11 +23,11 @@ function Start () {
 
 	Player = GameObject.Find("Player");
 
-	var lineRenderer : LineRenderer = gameObject.AddComponent.<LineRenderer>();
-		 lineRenderer.material = beamMaterial;
-		 // lineRenderer.SetColors(Color.yellow, Color.red);
-		 
-		 // lineRenderer.SetVertexCount(lengthOfLineRenderer);
+	forcefieldRenderer = GateForcefield.GetComponent.<MeshRenderer>();
+
+	//--use linerenderer for the beam that shoots the gatecube
+	lineRenderer = gameObject.AddComponent.<LineRenderer>();
+	lineRenderer.material = beamMaterial;
 }
 
 function OnTriggerEnter(other: Collider) 
@@ -42,49 +44,50 @@ function OnTriggerEnter(other: Collider)
 		collectionController.RemoveSpecialStatus();
 
 		//--shoot cube
-		// var gateBeamInstance : GameObject = Instantiate(Resources.Load("GateBeam", GameObject),
-		// 	Player.transform.position, 
-		// 	Quaternion.Euler(0, 0, 0)
-		// );
 
-		// gateBeamInstance.transform.parent = Player.transform;
+		yield WaitForSeconds(0.8);
 
-		// gateBeamInstance.LookAt(GateCube);
+		//--show explosion
+		var explosionInstance : GameObject = Instantiate(Resources.Load("Explosion", GameObject),
+			GateCube.transform.position, 
+			Quaternion.Euler(0, 0, 0)
+		);
 
+		GateCube.SetActive(false);
 
-			
-		// Destroy(gateBeamInstance,10);
+		showBeam = false;
+		Destroy(lineRenderer);
 
-		//-- cube explodes
-
-		yield WaitForSeconds(3);
-
+		yield WaitForSeconds(0.8);
 		OpenGate();
 	}
 }
 
 function OpenGate(){
 
-	Debug.Log("copen gate");
+	//-- flash for a bit
+
+	var blinkingAmt : int = 0;
+	
+	while(blinkingAmt < 6) {
+        yield WaitForSeconds(0.02);
+        forcefieldRenderer.enabled = !forcefieldRenderer.enabled;
+        blinkingAmt++;
+    }
+    forcefieldRenderer.enabled = true;
+
 	GateForcefield.SetActive(false);
 }
 
-	// var c1 : Color = Color.yellow;
-	// var c2 : Color = Color.red;
-	// var lengthOfLineRenderer : int = 20;
-
-
-
 function Update() {
 	if(showBeam) {
-		var lineRenderer : LineRenderer = GetComponent.<LineRenderer>();
 
 		lineRenderer.SetPosition(0, Player.transform.position);
 		lineRenderer.SetPosition(1, GateCube.transform.position);	
 		lineRenderer.SetWidth(beamWidth, beamWidth);
 
 		if(beamWidth < beamWidthMax) {
-			beamWidth += 0.2;
+			beamWidth += 0.5;
 		}
 	}
 
