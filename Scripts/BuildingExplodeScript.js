@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-public var SecondsCountdown : int; //--amount of seconds until this blows
+public var SecondsCountdown : float; //--amount of seconds until this blows
 public var BeamObj : GameObject;
 public var ExpObj1 : GameObject;
 public var ExpObj2 : GameObject;
@@ -118,7 +118,7 @@ function doAnimation(){
 
 function BecomeVisible() {
 	//--objecgt is now visible
-	Debug.Log("visible - now explode");
+	// Debug.Log("visible - now explode");
 
 	Invoke("CountdownFinished", SecondsCountdown);
 }

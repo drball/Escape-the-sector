@@ -6,7 +6,6 @@ public var seconds : int;
 public var textObj : GameObject;
 public var timerActive : boolean = false;
 public var timeRemaining : String; //--human readable output
-// public var flashing : boolean = false;
 
 private var gameController : GameControllerScript;
 private var miliseconds : float = 0;
@@ -14,9 +13,9 @@ private var timerText : Text;
 private var startMinutes : int; 
 private var startSeconds : int;
 private var endStatus: int = 0; //--used to flash when near end
-private var BlinkScript : BlinkUI;
+private var BlinkScript : BlinkUI; //--used to make timerText blink
 private var CameraBloomAnim : Animator;
-
+private var CameraShakeScript : CameraShakeScript;
 
 function Awake() {
 	startMinutes = minutes;
@@ -37,6 +36,8 @@ function Start() {
 
 	CameraBloomAnim = GameObject.Find("MainCamera").GetComponent.<Animator>();
 	CameraBloomAnim.enabled = false;
+
+	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 }
 
          
@@ -68,6 +69,14 @@ function Update(){
 			endStatus = 1;
 			Debug.Log("timer nears to end");
 			BlinkScript.StartBlinking();
+
+			//--start camera shaking constantly
+			CameraShakeScript.LongShake();
+
+			//--start camera bloom animation
+			CameraBloomAnim.enabled = true;
+			CameraBloomAnim.Play(0);
+			CameraBloomAnim.speed = 1;
 		}
 
 		//--when timer is REALLY near to end
@@ -75,9 +84,7 @@ function Update(){
 			endStatus = 2;
 			Debug.Log("timer REALLY near to end");
 
-			//--start camera bloom animation
-			// CameraBloomAnim.Play("MainCamera");
-			CameraBloomAnim.enabled = true;
+
 		}
 
 		//--when timer runs out

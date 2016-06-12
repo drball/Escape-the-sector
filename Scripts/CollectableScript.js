@@ -32,7 +32,7 @@ function OnTriggerEnter(other: Collider)
 	{
 	    collectionSfx.Play();
 
-	    Debug.Log("player hit collectable");
+	    // Debug.Log("player hit collectable");
 	    
 	    // gameController.IncreaseScore(1);
 	    

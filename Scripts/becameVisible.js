@@ -13,9 +13,8 @@ function Start () {
 
 
 function OnBecameVisible() {
-	Debug.Log(GameObject+" became visible");
 
-
-
-	ParentObjScript.BecomeVisible();
+	if(ParentObj){
+		ParentObjScript.BecomeVisible();
+	}
 }

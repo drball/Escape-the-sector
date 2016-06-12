@@ -20,6 +20,9 @@ public var levels : GameObject[];
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var LevelCompletedText : GameObject;
+private var DarkBg : GameObject;
+private var LoadingDialog : GameObject;
+private var CameraShakeScript : CameraShakeScript;
 
 
 //--scripts
@@ -31,11 +34,14 @@ function Start () {
 	Player = GameObject.Find("Player");
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
+	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
+	DarkBg = GameObject.Find("DarkBg");
+	LoadingDialog = GameObject.Find("LoadingDialog");
+	
 		
 	currentLevel = 3;
 
 	ResetLevel();
-
 
 }
 
@@ -108,6 +114,7 @@ function HideAllLevels() {
 	for(var theLevel : GameObject in levels){
 		Debug.Log("hiding level "+theLevel.name);
 		theLevel.SetActive(false);
+
 	}
 }
 
@@ -166,7 +173,11 @@ function PlayAgainSelected() {
 	//-- player has failed the level and is trying again
 	Debug.Log("clicked playing again");
 
-	ResetLevel();
+	LoadingDialog.SetActive(true);
+
+	Application.LoadLevel(Application.loadedLevel);
+
+	// ResetLevel();
 }
 
 
@@ -178,25 +189,32 @@ function LevelFailed () {
 
 	PlayerScript.PlayerDie();
 
-	//--flash the timer
-
-	//--explode the player
-
 	//--show failure dialog
-	yield WaitForSeconds(1);
+	yield WaitForSeconds(2);
 	FailLevelDialog.SetActive(true);
+
+	DarkBg.SetActive(true);
+	
 
 }
 
 function ResetLevel () {
 
+	Debug.Log("resetting level!");
+
 	//--hide all dialogs
 	CompleteLevelDialog.SetActive(false);
 	FailLevelDialog.SetActive(false);
+	DarkBg.SetActive(false);
+	CameraShakeScript.constantShaking = false;
+	
+	GameObject.Find("MainCamera").GetComponent.<Animator>().enabled = false;
 
 	GoToLevel(currentLevel);
 
 	TimerScript.ResetTimer();
+
+	LoadingDialog.SetActive(false);
 }
 
 

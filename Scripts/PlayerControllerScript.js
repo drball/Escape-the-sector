@@ -7,10 +7,11 @@ private var bulletDelay : float = 0.4;
 private var rb: Rigidbody;
 private var startYPos : float;
 private var rotationInitial : Vector3;
-// private var collider : Collider;
+public var ExplosionsContainer : GameObject;
 
 public var Vfx : GameObject;
 public var isAlive : boolean = true;
+
 
 function Start () {
 	
@@ -23,7 +24,6 @@ function Start () {
 	rb = GetComponent.<Rigidbody>();
 
 	startYPos = transform.position.y;
-
 
 	// Accelerate out of the last portal
 //	GetComponent.<Rigidbody>().AddRelativeForce(Vector3.forward * (speed/2), ForceMode.Impulse);
@@ -58,6 +58,10 @@ function FixedUpdate () {
 
 function PlayerDie(){
 	isAlive = false;
+
+	ExplosionsContainer.SetActive(true);
+	
+	Vfx.SetActive(false);
 }
 
 function HideVFX(){
@@ -78,6 +82,7 @@ function PlayerReset() {
 	isAlive = true;
 	gameObject.SetActive(true);
 	Vfx.SetActive(true);
+	ExplosionsContainer.SetActive(false);
 
 	rb.velocity = Vector3.zero;
 	rb.angularVelocity = Vector3.zero;

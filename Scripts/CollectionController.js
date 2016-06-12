@@ -29,6 +29,4 @@ function RemoveSpecialStatus() {
 	yield WaitForSeconds(2);
 	SpecialStatusParticles.SetActive(false);
 
-
-
 }
