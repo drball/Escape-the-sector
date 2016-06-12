@@ -11,7 +11,7 @@ public var StartLocationObj : GameObject;
 public var currentLevel : int;
 public var score : int = 0;
 private var maxCollectables : int = 3;
-public var specialStatus: boolean = false;
+public var collectablesCollected : int;
 
 //--objects
 private var scoreText : Text;
@@ -20,7 +20,7 @@ public var levels : GameObject[];
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var LevelCompletedText : GameObject;
-public var SpecialStatusParticles : GameObject;
+
 
 //--scripts
 private var PlayerScript : PlayerControllerScript;
@@ -146,7 +146,7 @@ function LevelCompleted () {
 
 	CompleteLevelDialog.SetActive(true);
 
-	LevelCompletedText.GetComponent.<Text>().text = ": "+score+" / "+maxCollectables;
+	LevelCompletedText.GetComponent.<Text>().text = ": "+collectablesCollected+" / "+maxCollectables;
 
 }
 
@@ -199,11 +199,5 @@ function ResetLevel () {
 	TimerScript.ResetTimer();
 }
 
-function SetSpecialStatus() {
-	specialStatus = true;
 
-	//--show particles
-	SpecialStatusParticles.SetActive(true);
-
-}
 

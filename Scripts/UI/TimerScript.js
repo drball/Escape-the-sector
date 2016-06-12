@@ -15,6 +15,7 @@ private var startMinutes : int;
 private var startSeconds : int;
 private var endStatus: int = 0; //--used to flash when near end
 private var BlinkScript : BlinkUI;
+private var CameraBloomAnim : Animator;
 
 
 function Awake() {
@@ -34,6 +35,8 @@ function Start() {
 
 	BlinkScript = textObj.GetComponent.<BlinkUI>();
 
+	CameraBloomAnim = GameObject.Find("MainCamera").GetComponent.<Animator>();
+	CameraBloomAnim.enabled = false;
 }
 
          
@@ -71,6 +74,10 @@ function Update(){
 		if(seconds <= 5 && endStatus < 2){
 			endStatus = 2;
 			Debug.Log("timer REALLY near to end");
+
+			//--start camera bloom animation
+			// CameraBloomAnim.Play("MainCamera");
+			CameraBloomAnim.enabled = true;
 		}
 
 		//--when timer runs out

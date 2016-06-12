@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 /* ====================================================
-For a collectable object which comes back later
+For a collectable object - normal and special
 ======================================================= */
 
 private var gameController : GameControllerScript;
@@ -48,12 +48,13 @@ function OnTriggerEnter(other: Collider)
 
 	    if(ConstantParticles) {
 	    	ConstantParticles.GetComponent.<ParticleSystem>().emissionRate = 0;
-
-	    	//--let game controller know we're at special status
-	    	collectionController.SetSpecialStatus();
 	    }
 
 	    if (isKey) {
+
+	    	//--let game controller know we're at special status
+	    	collectionController.SetSpecialStatus();
+
 			yield WaitForSeconds (20);
 
 			ReactivateCollectable();
@@ -63,6 +64,10 @@ function OnTriggerEnter(other: Collider)
 
 	    	Destroy(gameObject,2);
 	    }
+
+	    if(isSpecial) {
+    		gameController.collectablesCollected++;
+	    }
  
 	}
 
@@ -70,9 +75,11 @@ function OnTriggerEnter(other: Collider)
 
 function ReactivateCollectable() {
 
-	vfxObj.SetActive(true);
-	
 	//--come back and blink for a bit
+
+	//--only used for key
+
+	vfxObj.SetActive(true);
 	
 	var blinkingAmt : int = 0;
 	

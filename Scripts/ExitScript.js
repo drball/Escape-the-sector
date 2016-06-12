@@ -16,13 +16,6 @@ function Start () {
 	
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	// fadingScript = gameControllerObj.GetComponent.<FadingScript>();
-
-	
-	
-}
-
-function Update () {
-
 }
 
 function OnTriggerEnter(other: Collider) {
