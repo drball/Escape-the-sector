@@ -16,7 +16,7 @@ public var collectablesCollected : int;
 //--objects
 private var scoreText : Text;
 private var Player : GameObject;
-public var levels : GameObject[];
+public var levelObjects : GameObject[];
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var LevelCompletedText : GameObject;
@@ -37,9 +37,13 @@ function Start () {
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	DarkBg = GameObject.Find("DarkBg");
 	LoadingDialog = GameObject.Find("LoadingDialog");
-	
 		
-	currentLevel = 3;
+	if(IntroController.proposedLevelNum) {
+		currentLevel = IntroController.proposedLevelNum;
+	} else {
+		currentLevel = 2;
+	}
+	
 
 	ResetLevel();
 
@@ -94,10 +98,10 @@ function GoToLevel(destination:int) {
 	Debug.Log("going to level "+destination);
 	
 	//--switch level
-	levels[destination - 1].SetActive(true);
+	levelObjects[destination - 1].SetActive(true);
 
 	//--set the start location of this level
-	StartLocationObj = levels[destination - 1].Find("StartDummy");
+	StartLocationObj = levelObjects[destination - 1].Find("StartDummy");
 
 	//--fade in 
 
@@ -111,7 +115,7 @@ function HideAllLevels() {
 
 	// Debug.Log("hiding all levels");
 
-	for(var theLevel : GameObject in levels){
+	for(var theLevel : GameObject in levelObjects){
 		Debug.Log("hiding level "+theLevel.name);
 		theLevel.SetActive(false);
 
