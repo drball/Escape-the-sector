@@ -153,6 +153,13 @@ function LevelCompleted () {
 
 	PlayerScript.HideVFX();
 
+	//--save the level progress
+	var levelReached : int = PlayerPrefs.GetInt("levelReached");
+	if(levelReached < currentLevel){
+		Debug.Log("updating levelReached pp from "+currentLevel+" to "+currentLevel++);
+		PlayerPrefs.SetInt("levelReached",currentLevel++);
+	}
+
 	yield WaitForSeconds(2);
 
 	CompleteLevelDialog.SetActive(true);

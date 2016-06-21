@@ -10,6 +10,7 @@ Load a level when any key pressed
 public var IntroTextObj : GameObject;
 public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
+public var levelReached :int = 0;
 
 static var proposedLevelNum : int;
 
@@ -26,18 +27,32 @@ function Start() {
 
 	IntroTextObj.SetActive(true);
 
-	//--hide all game menu buttons
-	for(var levelButton : GameObject in levelButtons){
-		// levelButton.SetActive(false);
-		levelButton.GetComponent.<Button>().interactable = false;
+	//--load the level reached from playerprefs
+	var levelReachedLoad : int = PlayerPrefs.GetInt("levelReached");
+	
+	if(levelReachedLoad > 0)
+	{
+		levelReached = levelReachedLoad;
+	} else {
+		levelReached = 1;
+	}
+	Debug.Log("levelReached "+levelReached);
 
+	//--hide all game menu buttons
+	var levelButtonNum : int = 1;
+	for(var levelButton : GameObject in levelButtons){
+		
+		if(levelButtonNum > levelReached ){
+			levelButton.GetComponent.<Button>().interactable = false;
+		}else {
+
+		}
+
+		levelButtonNum++;
 	}
 
-	// levelButtons[0].SetActive(false);
-	levelButtons[0].GetComponent.<Button>().interactable = false;
+	//--show only the buttons for the levels we've finished, plus 1
 
-
-	//--show only the menu buttons we're allowed to see 
 
 }
 
