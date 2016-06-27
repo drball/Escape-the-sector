@@ -41,7 +41,7 @@ function Start () {
 	if(IntroController.proposedLevelNum) {
 		currentLevel = IntroController.proposedLevelNum;
 	} else {
-		currentLevel = 2;
+		currentLevel = 3;
 	}
 	
 
