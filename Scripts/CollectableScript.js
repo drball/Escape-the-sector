@@ -52,6 +52,8 @@ function OnTriggerEnter(other: Collider)
 
 	    if (isKey) {
 
+	    	Debug.Log("have collected a key - set special status");
+
 	    	//--let game controller know we're at special status
 	    	collectionController.SetSpecialStatus();
 

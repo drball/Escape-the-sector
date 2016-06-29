@@ -45,7 +45,11 @@ function Start(){
 
 function CountdownFinished(){
 	//--this has the be called from another function apparently - probably because it contains yields?
-	doAnimation();
+
+	if(gameObject.activeInHierarchy) {
+		//--because this was called some time ago, check we're still active
+		doAnimation();
+	}
 }
 
 function doAnimation(){

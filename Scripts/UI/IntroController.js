@@ -11,6 +11,7 @@ public var IntroTextObj : GameObject;
 public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
 public var levelReached :int = 0;
+public var LoadingDialog : GameObject;
 
 static var proposedLevelNum : int;
 
@@ -26,6 +27,8 @@ function Start() {
 	yield WaitForSeconds(2);
 
 	IntroTextObj.SetActive(true);
+
+	LoadingDialog.SetActive(false);
 
 	//--load the level reached from playerprefs
 	var levelReachedLoad : int = PlayerPrefs.GetInt("levelReached");
@@ -53,7 +56,6 @@ function Start() {
 
 	//--show only the buttons for the levels we've finished, plus 1
 
-
 }
 
 public function StartBtnPressed() {
@@ -64,12 +66,28 @@ public function StartBtnPressed() {
 	MenuUI.SetActive(true);
 }
 
+function LoadLevelBtnPressed(levelNum : int){
+
+	//--menu button pressed
+	LoadingDialog.SetActive(true);
+
+	LoadLevel(levelNum);
+}
+
 function LoadLevel (levelNum : int) {
+
+	yield WaitForSeconds(0.25);
 
 	proposedLevelNum = levelNum;
 
 	Debug.Log("load level "+ levelNum);
 
 	SceneManager.LoadScene("Main");
+}
+
+function ResetPlayerPrefs() {
+	//--delete all playerprefs 
+
+	PlayerPrefs.DeleteAll();
 }
 

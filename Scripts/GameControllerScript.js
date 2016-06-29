@@ -23,6 +23,7 @@ public var LevelCompletedText : GameObject;
 private var DarkBg : GameObject;
 private var LoadingDialog : GameObject;
 private var CameraShakeScript : CameraShakeScript;
+private var CollectionScript : CollectionController;
 
 
 //--scripts
@@ -35,6 +36,7 @@ function Start () {
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
+	CollectionScript = GetComponent.<CollectionController>();
 	DarkBg = GameObject.Find("DarkBg");
 	LoadingDialog = GameObject.Find("LoadingDialog");
 		
@@ -191,8 +193,6 @@ function PlayAgainSelected() {
 	// ResetLevel();
 }
 
-
-
 function LevelFailed () {
 	//--when the time runs out & the player hasn't reached the exit
 
@@ -218,6 +218,7 @@ function ResetLevel () {
 	FailLevelDialog.SetActive(false);
 	DarkBg.SetActive(false);
 	CameraShakeScript.constantShaking = false;
+	CollectionScript.RemoveSpecialStatus();
 	
 	GameObject.Find("MainCamera").GetComponent.<Animator>().enabled = false;
 

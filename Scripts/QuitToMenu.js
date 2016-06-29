@@ -1,19 +1,20 @@
 #pragma strict
-// using UnityEngine.SceneManagement;
+import UnityEngine.SceneManagement;
 
 
-// function Update () {
+function Update () {
 
-// 	 if(Input.GetKeyDown(KeyCode.Escape) == true)
-// 	 {
-// 		// Application.LoadScene("menu");
-// 		
-// 		LoadMainMenuScene();
-// 	 }
+	 if(Input.GetKeyDown(KeyCode.Escape) == true)
+	 {
+		// Application.LoadScene("menu");
+		
+		LoadMainMenuScene();
+	 }
 	 
-// }
+}
 
 function LoadMainMenuScene () {
 
-	// SceneManager.LoadScene("Menu");
+	Debug.Log("go to intro");
+	SceneManager.LoadScene("Intro");
 }
