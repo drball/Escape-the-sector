@@ -43,7 +43,7 @@ function Start () {
 	if(IntroController.proposedLevelNum) {
 		currentLevel = IntroController.proposedLevelNum;
 	} else {
-		currentLevel = 3;
+		currentLevel = 1;
 	}
 	
 
@@ -155,6 +155,9 @@ function LevelCompleted () {
 
 	PlayerScript.HideVFX();
 
+	CollectionScript.specialStatus = false;
+	CollectionScript.HideSpecialParticles();
+
 	//--save the level progress
 	var levelReached : int = PlayerPrefs.GetInt("levelReached");
 	if(levelReached < currentLevel){
@@ -218,7 +221,8 @@ function ResetLevel () {
 	FailLevelDialog.SetActive(false);
 	DarkBg.SetActive(false);
 	CameraShakeScript.constantShaking = false;
-	CollectionScript.RemoveSpecialStatus();
+	CollectionScript.specialStatus = false;
+	CollectionScript.HideSpecialParticles();
 	
 	GameObject.Find("MainCamera").GetComponent.<Animator>().enabled = false;
 
