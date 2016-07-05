@@ -165,6 +165,15 @@ function LevelCompleted () {
 		PlayerPrefs.SetInt("levelReached",currentLevel++);
 	}
 
+	Debug.Log("saving level "+currentLevel);
+
+	PlayerPrefs.SetInt("Level"+currentLevel+"StarsCollected",33);
+	// PlayerPrefs.SetInt("Level2StarsCollected",2);
+	// PlayerPrefs.SetInt("Level3StarsCollected",1);
+	// PlayerPrefs.SetInt("Level4StarsCollected",2);
+	// PlayerPrefs.SetInt("Level5StarsCollected",2);
+	// PlayerPrefs.SetInt("Level6StarsCollected",2);
+
 	yield WaitForSeconds(2);
 
 	CompleteLevelDialog.SetActive(true);
