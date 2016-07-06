@@ -19,12 +19,12 @@ private var Player : GameObject;
 public var levelObjects : GameObject[];
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
+public var CompleteGameDialog : GameObject;
 public var LevelCompletedText : GameObject;
 private var DarkBg : GameObject;
 private var LoadingDialog : GameObject;
 private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
-
 
 //--scripts
 private var PlayerScript : PlayerControllerScript;
@@ -43,7 +43,7 @@ function Start () {
 	if(IntroController.proposedLevelNum) {
 		currentLevel = IntroController.proposedLevelNum;
 	} else {
-		currentLevel = 1;
+		currentLevel = 2;
 	}
 	
 
@@ -90,6 +90,7 @@ function GoToLevel(destination:int) {
 	//--hide all level gameObjects so we can show only one
 	HideAllLevels();
 
+	//--update the current level
 	currentLevel = destination;
 
 	//--show loading spinner
@@ -189,9 +190,16 @@ function ContinueSelected () {
 	//--hide dialog
 	CompleteLevelDialog.SetActive(false);
 
-	//--go to next level
-	currentLevel++;
-	GoToLevel(currentLevel);
+	//--check if there is a next level, or if this was the last
+	Debug.Log("array length = "+levelObjects.Length);
+	if(currentLevel < levelObjects.Length ){
+		//--go to next level
+		currentLevel++;
+		GoToLevel(currentLevel);
+	} else {
+		CompleteGameDialog.SetActive(true);
+	}
+
 }
 
 function PlayAgainSelected() {
@@ -228,6 +236,7 @@ function ResetLevel () {
 	//--hide all dialogs
 	CompleteLevelDialog.SetActive(false);
 	FailLevelDialog.SetActive(false);
+	CompleteGameDialog.SetActive(false);
 	DarkBg.SetActive(false);
 	CameraShakeScript.constantShaking = false;
 	CollectionScript.specialStatus = false;
