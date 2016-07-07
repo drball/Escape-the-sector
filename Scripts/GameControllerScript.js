@@ -43,11 +43,13 @@ function Start () {
 	if(IntroController.proposedLevelNum) {
 		currentLevel = IntroController.proposedLevelNum;
 	} else {
-		currentLevel = 2;
+		currentLevel = 1;
 	}
 	
 
 	ResetLevel();
+
+	GoToLevel(currentLevel);
 
 }
 
@@ -159,21 +161,21 @@ function LevelCompleted () {
 	CollectionScript.specialStatus = false;
 	CollectionScript.HideSpecialParticles();
 
-	//--save the level progress
+	//--save the level reached - if it's greater than we had before
 	var levelReached : int = PlayerPrefs.GetInt("levelReached");
-	if(levelReached < currentLevel){
-		Debug.Log("updating levelReached pp from "+currentLevel+" to "+currentLevel++);
-		PlayerPrefs.SetInt("levelReached",currentLevel++);
+	if( currentLevel > levelReached){
+		Debug.Log("updating levelReached pp from "+currentLevel+" to "+(currentLevel+1));
+		PlayerPrefs.SetInt("levelReached",(currentLevel+1));
 	}
 
-	Debug.Log("saving level "+currentLevel);
+	//--save the colletables - if it's greater than we had
+	var savedProgress : int = PlayerPrefs.GetInt("Level"+currentLevel+"StarsCollected");
+	Debug.Log("loading progress - level:"+currentLevel+" has progress: "+savedProgress);
 
-	PlayerPrefs.SetInt("Level"+currentLevel+"StarsCollected",33);
-	// PlayerPrefs.SetInt("Level2StarsCollected",2);
-	// PlayerPrefs.SetInt("Level3StarsCollected",1);
-	// PlayerPrefs.SetInt("Level4StarsCollected",2);
-	// PlayerPrefs.SetInt("Level5StarsCollected",2);
-	// PlayerPrefs.SetInt("Level6StarsCollected",2);
+	if( collectablesCollected > savedProgress){
+		Debug.Log("saving level "+currentLevel);
+		PlayerPrefs.SetInt("Level"+currentLevel+"StarsCollected",collectablesCollected);
+	}
 
 	yield WaitForSeconds(2);
 
@@ -231,7 +233,7 @@ function LevelFailed () {
 
 function ResetLevel () {
 
-	Debug.Log("resetting level!");
+	Debug.Log("resetting level! c");
 
 	//--hide all dialogs
 	CompleteLevelDialog.SetActive(false);
@@ -241,10 +243,12 @@ function ResetLevel () {
 	CameraShakeScript.constantShaking = false;
 	CollectionScript.specialStatus = false;
 	CollectionScript.HideSpecialParticles();
+	collectablesCollected = 0;
+	score = 0;
 	
 	GameObject.Find("MainCamera").GetComponent.<Animator>().enabled = false;
 
-	GoToLevel(currentLevel);
+	// GoToLevel(currentLevel);
 
 	TimerScript.ResetTimer();
 

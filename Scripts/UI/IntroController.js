@@ -12,12 +12,12 @@ public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
 public var levelReached :int = 0;
 public var LoadingDialog : GameObject; //--doesn't work
-public var level1Collectables : GameObject[];
-public var level2Collectables : GameObject[];
-public var level3Collectables : GameObject[];
-public var level4Collectables : GameObject[];
-public var level5Collectables : GameObject[];
-public var level6Collectables : GameObject[];
+// public var level1Collectables : GameObject[];
+// public var level2Collectables : GameObject[];
+// public var level3Collectables : GameObject[];
+// public var level4Collectables : GameObject[];
+// public var level5Collectables : GameObject[];
+// public var level6Collectables : GameObject[];
 
 static var proposedLevelNum : int;
 
@@ -51,15 +51,8 @@ function Start() {
 			levelButton.GetComponent.<Button>().interactable = false;
 		}
 
-		//--load the level progress for this level
-		var levelProgress: int = PlayerPrefs.GetInt("Level"+levelButtonNum+"StarsCollected");
-
-		Debug.Log("level progress for "+levelButtonNum+" = "+levelProgress);
-
 		levelButtonNum++;
 	}
-
-
 
 	yield WaitForSeconds(2);
 
@@ -77,6 +70,8 @@ public function StartBtnPressed() {
 }
 
 function LoadLevelBtnPressed(levelNum : int){
+
+	Debug.Log("level button pressed");
 
 	//--menu button pressed
 	LoadingDialog.SetActive(true); 

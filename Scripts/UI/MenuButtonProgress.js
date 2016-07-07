@@ -15,7 +15,7 @@ function Start () {
 	//--load the level progress for this level
 	levelProgress = PlayerPrefs.GetInt("Level"+levelButtonNum+"StarsCollected");
 
-	Debug.Log("level progress for "+levelButtonNum+" = "+levelProgress);
+	Debug.Log("level progress forr "+levelButtonNum+" = "+levelProgress);
 
 	if(levelProgress){
 		if(levelProgress == 3){
