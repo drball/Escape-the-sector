@@ -65,7 +65,7 @@ function Update(){
 
 	if(minutes <= 0 && timerActive == true){
 		//-- when timer nears to end
-		if(seconds <= 10 && endStatus < 1){
+		if(seconds <= 20 && endStatus < 1){
 			endStatus = 1;
 			Debug.Log("timer nears to end");
 			BlinkScript.StartBlinking();
@@ -80,7 +80,7 @@ function Update(){
 		}
 
 		//--when timer is REALLY near to end
-		if(seconds <= 5 && endStatus < 2){
+		if(seconds <= 10 && endStatus < 2){
 			endStatus = 2;
 			Debug.Log("timer REALLY near to end");
 

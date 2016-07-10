@@ -74,18 +74,6 @@ function Update () {
 	
 }
 
-function StartLevel () {
-
-	//--reset things. We might be starting from scratch, starting new level, or restarting level
-	score = 0;
-
-	PlayerScript.PlayerReset();
-
-	yield WaitForSeconds(1);
-
-	TimerScript.StartTimer();
-}
-
 
 function GoToLevel(destination:int) {
 
@@ -108,9 +96,15 @@ function GoToLevel(destination:int) {
 	//--set the start location of this level
 	StartLocationObj = levelObjects[destination - 1].Find("StartDummy");
 
-	//--fade in 
+	//--start the level
 
-	StartLevel();
+	PlayerScript.PlayerReset();
+
+	ResetLevel();
+
+	yield WaitForSeconds(1);
+
+	TimerScript.StartTimer();
 
 }
 
@@ -163,8 +157,9 @@ function LevelCompleted () {
 
 	//--save the level reached - if it's greater than we had before
 	var levelReached : int = PlayerPrefs.GetInt("levelReached");
-	if( currentLevel > levelReached){
-		Debug.Log("updating levelReached pp from "+currentLevel+" to "+(currentLevel+1));
+	Debug.Log("Completing "+currentLevel+". LevelReached is: "+levelReached);
+	if( currentLevel >= levelReached){
+		Debug.Log("updating levelReached to "+(currentLevel+1));
 		PlayerPrefs.SetInt("levelReached",(currentLevel+1));
 	}
 
@@ -210,9 +205,7 @@ function PlayAgainSelected() {
 
 	LoadingDialog.SetActive(true);
 
-	Application.LoadLevel(Application.loadedLevel);
-
-	// ResetLevel();
+	Application.LoadLevel(Application.loadedLevel); //--easier than resetting all vars
 }
 
 function LevelFailed () {
