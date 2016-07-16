@@ -12,6 +12,7 @@ public var currentLevel : int;
 public var score : int = 0;
 private var maxCollectables : int = 3;
 public var collectablesCollected : int;
+public var LoadingDialog : GameObject;
 
 //--objects
 private var scoreText : Text;
@@ -22,7 +23,6 @@ public var FailLevelDialog : GameObject;
 public var CompleteGameDialog : GameObject;
 public var LevelCompletedText : GameObject;
 private var DarkBg : GameObject;
-private var LoadingDialog : GameObject;
 private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
 
@@ -38,7 +38,6 @@ function Start () {
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	CollectionScript = GetComponent.<CollectionController>();
 	DarkBg = GameObject.Find("DarkBg");
-	LoadingDialog = GameObject.Find("LoadingDialog");
 		
 	if(IntroController.proposedLevelNum) {
 		currentLevel = IntroController.proposedLevelNum;
