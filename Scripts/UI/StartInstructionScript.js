@@ -2,19 +2,26 @@
 
 public var InstructionStepObjs : GameObject[];
 public var playedBefore : boolean;
-public var currentInstruction : int = 0;
+private var currentInstruction : int = 0;
 public var InstructionParent : GameObject;
+private var gameController : GameControllerScript;
 
 function Start () {
+
+	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 
 	//--hide all instructions
 	HideAllInstructions();
 
     //--check if we've played before
-    // playedBefore = PlayerPrefs.GetInt("PlayedBefore") > 0;
+    playedBefore = PlayerPrefs.GetInt("PlayedBefore") > 0;
 
     if(!playedBefore){
     	Debug.Log("first time playing");
+
+    	//--we need to show instruction - so pause the game 
+		gameController.PauseGame(true);
+
     	PlayerPrefs.SetInt("PlayedBefore", 1);
 
 	    //--show the first 
@@ -38,6 +45,7 @@ function NextInstruction() {
 	if(currentInstruction >= InstructionStepObjs.length){
 		Debug.Log("finish instructions");
 		InstructionParent.SetActive(false);
+		gameController.PauseGame(false);
 	}else {
 		//--show next slide
 		Debug.Log("show next slide");

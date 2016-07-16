@@ -45,7 +45,6 @@ function Start () {
 		currentLevel = 1;
 	}
 	
-
 	ResetLevel();
 
 	GoToLevel(currentLevel);
@@ -57,19 +56,19 @@ function Update () {
 	if (Input.GetKeyDown ("p"))
 	{
 		if(isPaused == false) {
-			var PausedCanvasInstance : Canvas = Instantiate(Resources.Load("PausedCanvas", Canvas));
+			// var PausedCanvasInstance : Canvas = Instantiate(Resources.Load("PausedCanvas", Canvas));
 			PauseGame(true);
 			
 		} else {
-			Destroy(GameObject.Find("PausedCanvas(Clone)"));
+			// Destroy(GameObject.Find("PausedCanvas(Clone)"));
 			PauseGame(false);
 		}	
 	}
 
-	if (Input.GetKeyDown ("1")){
-		Debug.Log("pressing1");
-		GoToLevel(1);
-	}
+	// if (Input.GetKeyDown ("1")){
+	// 	Debug.Log("pressing1");
+	// 	GoToLevel(1);
+	// }
 	
 }
 
