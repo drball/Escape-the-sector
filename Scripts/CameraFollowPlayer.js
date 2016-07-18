@@ -11,7 +11,9 @@ private var dy : float;
 private var dz : float;
 
 
-function Awake () {
+function Start () {
+
+	target = GameObject.Find("Player");
 
 	dx = transform.position.x - target.transform.position.x;
     dz = transform.position.z - target.transform.position.z;

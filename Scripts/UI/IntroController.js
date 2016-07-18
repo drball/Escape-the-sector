@@ -12,14 +12,7 @@ public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
 public var levelReached :int = 0;
 public var LoadingDialog : GameObject; //--doesn't work
-// public var level1Collectables : GameObject[];
-// public var level2Collectables : GameObject[];
-// public var level3Collectables : GameObject[];
-// public var level4Collectables : GameObject[];
-// public var level5Collectables : GameObject[];
-// public var level6Collectables : GameObject[];
-
-static var proposedLevelNum : int;
+private var LevelsController : LevelsController;
 
 function Start() {
 	// FadingScript = GetComponent.<FadingScript>();
@@ -28,7 +21,7 @@ function Start() {
 
 	MenuUI.SetActive(false);
 
-	// FadingScript.BeginFade(-1);
+	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 
 	LoadingDialog.SetActive(false);
 
@@ -76,18 +69,14 @@ function LoadLevelBtnPressed(levelNum : int){
 	//--menu button pressed
 	LoadingDialog.SetActive(true); 
 
-	LoadLevel(levelNum);
+	WaitThenLoadLevel(levelNum);
+
 }
 
-function LoadLevel (levelNum : int) {
-
+function WaitThenLoadLevel(levelNum : int){
+	//--can't do a yield in the function we call from a button!
 	yield WaitForSeconds(0.25);
-
-	proposedLevelNum = levelNum;
-
-	Debug.Log("load level "+ levelNum);
-
-	SceneManager.LoadScene("Main");
+	LevelsController.LoadLevel(levelNum);
 }
 
 function ResetPlayerPrefs() {

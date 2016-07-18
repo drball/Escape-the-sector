@@ -17,7 +17,6 @@ public var LoadingDialog : GameObject;
 //--objects
 private var scoreText : Text;
 private var Player : GameObject;
-public var levelObjects : GameObject[];
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var CompleteGameDialog : GameObject;
@@ -25,29 +24,33 @@ public var LevelCompletedText : GameObject;
 private var DarkBg : GameObject;
 private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
+private var SpecialPlayerEffectScript : SpecialPlayerEffectScript;
+private var LevelsController : LevelsController;
 
 //--scripts
 private var PlayerScript : PlayerControllerScript;
 private var TimerScript : TimerScript;
 
+function Awake(){
+	Player = Instantiate(Resources.Load("Player", GameObject),
+		Vector3(0,0,0), 
+		Quaternion.Euler(0, 0, 0));
+}
+
 function Start () {
 
-	Player = GameObject.Find("Player");
+	// SceneManager.UnloadScene("Intro");
+
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	CollectionScript = GetComponent.<CollectionController>();
+	SpecialPlayerEffectScript = Player.GetComponent.<SpecialPlayerEffectScript>();
+	LevelsController = GetComponent.<LevelsController>();
 	DarkBg = GameObject.Find("DarkBg");
-		
-	if(IntroController.proposedLevelNum) {
-		currentLevel = IntroController.proposedLevelNum;
-	} else {
-		currentLevel = 1;
-	}
+	DarkBg.SetActive(false);
 	
-	ResetLevel();
-
-	GoToLevel(currentLevel);
+	StartLevel();
 
 }
 
@@ -73,28 +76,7 @@ function Update () {
 }
 
 
-function GoToLevel(destination:int) {
-
-	//--hide all level gameObjects so we can show only one
-	HideAllLevels();
-
-	//--update the current level
-	currentLevel = destination;
-
-	//--show loading spinner
-
-	//--save score so we can use it next level
-//	PlayerPrefs.SetInt("score", score);
-
-	Debug.Log("going to level "+destination);
-	
-	//--switch level
-	levelObjects[destination - 1].SetActive(true);
-
-	//--set the start location of this level
-	StartLocationObj = levelObjects[destination - 1].Find("StartDummy");
-
-	//--start the level
+function StartLevel() {
 
 	PlayerScript.PlayerReset();
 
@@ -104,19 +86,6 @@ function GoToLevel(destination:int) {
 
 	TimerScript.StartTimer();
 
-}
-
-function HideAllLevels() {
-
-	//--when changing level, all other levels need to be hidden
-
-	// Debug.Log("hiding all levels");
-
-	for(var theLevel : GameObject in levelObjects){
-		Debug.Log("hiding level "+theLevel.name);
-		theLevel.SetActive(false);
-
-	}
 }
 
 function PauseGame (action : boolean) {
@@ -151,7 +120,7 @@ function LevelCompleted () {
 	PlayerScript.HideVFX();
 
 	CollectionScript.specialStatus = false;
-	CollectionScript.HideSpecialParticles();
+	SpecialPlayerEffectScript.StopSpecialEffect();
 
 	//--save the level reached - if it's greater than we had before
 	var levelReached : int = PlayerPrefs.GetInt("levelReached");
@@ -186,11 +155,9 @@ function ContinueSelected () {
 	CompleteLevelDialog.SetActive(false);
 
 	//--check if there is a next level, or if this was the last
-	Debug.Log("array length = "+levelObjects.Length);
-	if(currentLevel < levelObjects.Length ){
-		//--go to next level
-		currentLevel++;
-		GoToLevel(currentLevel);
+	// Debug.Log("array length = "+levelObjects.Length);
+	if(LevelsController.currentLevel <= LevelsController.numLevels ){
+		LevelsController.LoadNextLevel();
 	} else {
 		CompleteGameDialog.SetActive(true);
 	}
@@ -233,7 +200,7 @@ function ResetLevel () {
 	DarkBg.SetActive(false);
 	CameraShakeScript.constantShaking = false;
 	CollectionScript.specialStatus = false;
-	CollectionScript.HideSpecialParticles();
+	SpecialPlayerEffectScript.StopSpecialEffect();
 	collectablesCollected = 0;
 	score = 0;
 	
