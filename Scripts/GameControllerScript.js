@@ -8,7 +8,7 @@ static var isPaused : boolean = false;
 //--variables
 private var maxLevels : int; 
 public var StartLocationObj : GameObject;
-public var currentLevel : int;
+// public var currentLevel : int;
 public var score : int = 0;
 private var maxCollectables : int = 3;
 public var collectablesCollected : int;
@@ -16,12 +16,12 @@ public var LoadingDialog : GameObject;
 
 //--objects
 private var scoreText : Text;
-private var Player : GameObject;
+public var Player : GameObject;
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var CompleteGameDialog : GameObject;
 public var LevelCompletedText : GameObject;
-private var DarkBg : GameObject;
+public var DarkBg : GameObject;
 private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
 private var SpecialPlayerEffectScript : SpecialPlayerEffectScript;
@@ -31,27 +31,21 @@ private var LevelsController : LevelsController;
 private var PlayerScript : PlayerControllerScript;
 private var TimerScript : TimerScript;
 
-function Awake(){
-	Player = Instantiate(Resources.Load("Player", GameObject),
-		Vector3(0,0,0), 
-		Quaternion.Euler(0, 0, 0));
-}
-
 function Start () {
 
 	// SceneManager.UnloadScene("Intro");
 
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
+	StartLocationObj = GameObject.Find("StartDummy");
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	CollectionScript = GetComponent.<CollectionController>();
 	SpecialPlayerEffectScript = Player.GetComponent.<SpecialPlayerEffectScript>();
-	LevelsController = GetComponent.<LevelsController>();
-	DarkBg = GameObject.Find("DarkBg");
 	DarkBg.SetActive(false);
-	
-	StartLevel();
+	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 
+	StartLevel();
+	
 }
 
 function Update () {
@@ -77,6 +71,8 @@ function Update () {
 
 
 function StartLevel() {
+
+	Debug.Log("starting level "+LevelsController.currentLevel);
 
 	PlayerScript.PlayerReset();
 
@@ -124,19 +120,19 @@ function LevelCompleted () {
 
 	//--save the level reached - if it's greater than we had before
 	var levelReached : int = PlayerPrefs.GetInt("levelReached");
-	Debug.Log("Completing "+currentLevel+". LevelReached is: "+levelReached);
-	if( currentLevel >= levelReached){
-		Debug.Log("updating levelReached to "+(currentLevel+1));
-		PlayerPrefs.SetInt("levelReached",(currentLevel+1));
+	Debug.Log("Completing "+LevelsController.currentLevel+". LevelReached is: "+levelReached);
+	if( LevelsController.currentLevel >= levelReached){
+		Debug.Log("updating levelReached to "+(LevelsController.currentLevel+1));
+		PlayerPrefs.SetInt("levelReached",(LevelsController.currentLevel+1));
 	}
 
 	//--save the colletables - if it's greater than we had
-	var savedProgress : int = PlayerPrefs.GetInt("Level"+currentLevel+"StarsCollected");
-	Debug.Log("loading progress - level:"+currentLevel+" has progress: "+savedProgress);
+	var savedProgress : int = PlayerPrefs.GetInt("Level"+LevelsController.currentLevel+"StarsCollected");
+	Debug.Log("loading progress - level:"+LevelsController.currentLevel+" has progress: "+savedProgress);
 
 	if( collectablesCollected > savedProgress){
-		Debug.Log("saving level "+currentLevel);
-		PlayerPrefs.SetInt("Level"+currentLevel+"StarsCollected",collectablesCollected);
+		Debug.Log("saving level "+LevelsController.currentLevel);
+		PlayerPrefs.SetInt("Level"+LevelsController.currentLevel+"StarsCollected",collectablesCollected);
 	}
 
 	yield WaitForSeconds(2);
@@ -150,17 +146,28 @@ function LevelCompleted () {
 function ContinueSelected () {
 
 	//--player has completed level, & has chosen to continue to next level
+	Debug.Log("continue selected");
 
 	//--hide dialog
 	CompleteLevelDialog.SetActive(false);
 
 	//--check if there is a next level, or if this was the last
 	// Debug.Log("array length = "+levelObjects.Length);
-	if(LevelsController.currentLevel <= LevelsController.numLevels ){
-		LevelsController.LoadNextLevel();
-	} else {
-		CompleteGameDialog.SetActive(true);
+	if(LevelsController){
+		if(LevelsController.currentLevel < LevelsController.numLevels ){
+			Debug.Log("Load next level out of "+LevelsController.numLevels);
+			LevelsController.LoadNextLevel();
+		} else {
+			CompleteGameDialog.SetActive(true);
+		}
+	}else {
+		Debug.Log("no levelsController");
+
+		//--there's no levelscontroller (maybe we're testing this scene in isolation)
+		//--load menu instead
+		Application.LoadLevel("Intro");
 	}
+	
 
 }
 

@@ -25,13 +25,14 @@ function Start () {
     	PlayerPrefs.SetInt("PlayedBefore", 1);
 
 	    //--show the first 
+	    InstructionParent.SetActive(true);
     	InstructionStepObjs[0].SetActive(true);
     }
 
 }
 function HideAllInstructions() {
 	for(var obj : GameObject in InstructionStepObjs) {
-        // Debug.Log("hiding obj "+obj.name);
+        Debug.Log("hiding obj "+obj.name);
         obj.SetActive(false);
     }
 }

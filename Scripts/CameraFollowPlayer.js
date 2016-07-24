@@ -11,7 +11,7 @@ private var dy : float;
 private var dz : float;
 
 
-function Start () {
+function Awake () {
 
 	target = GameObject.Find("Player");
 

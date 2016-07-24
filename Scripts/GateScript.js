@@ -35,8 +35,6 @@ function OnTriggerEnter(other: Collider)
 
 	Debug.Log("collision with gate");
 
-	Debug.Log("");
-
 	if (other.tag == "Player" && !isOpen && collectionController.specialStatus)
 	{
 		isOpen = true;

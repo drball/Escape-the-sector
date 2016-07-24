@@ -4,7 +4,7 @@ private var nextFire : float;
 private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
 private var bulletDelay : float = 0.4;
-private var rb: Rigidbody;
+public var rb : Rigidbody;
 private var startYPos : float;
 private var rotationInitial : Vector3;
 public var ExplosionsContainer : GameObject;
@@ -13,11 +13,9 @@ public var Vfx : GameObject;
 public var isAlive : boolean = true;
 
 
-function Start () {
+function Awake () {
 	
 
-	// fireFrom = transform.Find("FireFrom").gameObject; //--find child object
-	
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 
@@ -82,6 +80,7 @@ function PlayerReset() {
 	ExplosionsContainer.SetActive(false);
 
 	rb.velocity = Vector3.zero;
+
 	rb.angularVelocity = Vector3.zero;
 
 	//--move player to start location
