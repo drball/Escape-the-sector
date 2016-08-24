@@ -12,6 +12,7 @@ public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
 public var levelReached :int = 0;
 public var LoadingDialog : GameObject; //--doesn't work
+public var InfoDialog : GameObject;
 private var LevelsController : LevelsController;
 
 function Start() {
@@ -20,6 +21,7 @@ function Start() {
 	IntroTextObj.SetActive(false);
 
 	MenuUI.SetActive(false);
+	InfoDialog.SetActive(false);
 
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 
@@ -71,6 +73,17 @@ function LoadLevelBtnPressed(levelNum : int){
 
 	WaitThenLoadLevel(levelNum);
 
+}
+
+function InfoPressed(){
+
+	Debug.Log("info button pressed");
+	InfoDialog.SetActive(true); 
+}
+
+function InfoClosedPressed(){
+
+	InfoDialog.SetActive(false); 
 }
 
 function WaitThenLoadLevel(levelNum : int){
