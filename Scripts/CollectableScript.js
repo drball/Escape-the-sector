@@ -12,7 +12,7 @@ public var vfxObj : GameObject;
 public var ConstantParticles : GameObject;
 public var isKey : boolean;
 public var isSpecial : boolean;
-
+private var pointsValue : int = 10;
 
 function Start () {
 	//--find gameController so we can call functions
@@ -33,8 +33,6 @@ function OnTriggerEnter(other: Collider)
 	    collectionSfx.Play();
 
 	    // Debug.Log("player hit collectable");
-	    
-	    // gameController.IncreaseScore(1);
 	    
 	    var sparkInstance : GameObject = Instantiate(Resources.Load("CollectionSparks", GameObject),
 			Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z), 
@@ -62,7 +60,7 @@ function OnTriggerEnter(other: Collider)
 			ReactivateCollectable();
 	    } else {
 	    	//--increase score 
-	    	gameController.IncreaseScore();
+	    	gameController.IncreasePoints();
 
 	    	Destroy(gameObject,2);
 	    }
@@ -93,3 +91,4 @@ function ReactivateCollectable() {
     vfxObj.GetComponent.<Renderer>().enabled = true;
     isCollectable = true;
 }
+

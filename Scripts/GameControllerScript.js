@@ -7,15 +7,13 @@ static var isPaused : boolean = false;
 
 //--variables
 private var maxLevels : int; 
-public var StartLocationObj : GameObject;
-// public var currentLevel : int;
-public var score : int = 0;
 private var maxCollectables : int = 3;
 public var collectablesCollected : int;
-public var LoadingDialog : GameObject;
 
 //--objects
-private var scoreText : Text;
+public var LoadingDialog : GameObject;
+public var StartLocationObj : GameObject;
+public var PointsText : GameObject;
 public var Player : GameObject;
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
@@ -98,8 +96,13 @@ function PauseGame (action : boolean) {
 	}
 }
 
-function IncreaseScore() {
-	score++;
+function IncreasePoints() {
+	LevelsController.points += 10;
+
+	Debug.Log("increase score");
+
+	//--show score
+	PointsText.GetComponent.<Text>().text = LevelsController.points.ToString();
 }
 
 function ExitReached() {
@@ -134,6 +137,8 @@ function LevelCompleted () {
 		Debug.Log("saving level "+LevelsController.currentLevel);
 		PlayerPrefs.SetInt("Level"+LevelsController.currentLevel+"StarsCollected",collectablesCollected);
 	}
+
+	LevelsController.SavePoints(); //--save points to playerprefs
 
 	yield WaitForSeconds(2);
 
@@ -209,7 +214,6 @@ function ResetLevel () {
 	CollectionScript.specialStatus = false;
 	SpecialPlayerEffectScript.StopSpecialEffect();
 	collectablesCollected = 0;
-	score = 0;
 	
 	GameObject.Find("MainCamera").GetComponent.<Animator>().enabled = false;
 

@@ -1,7 +1,11 @@
-﻿#pragma strict
+﻿//--a singleton
+#pragma strict
 
 public var numLevels : int;
 public var currentLevel : int;
+static var points : int = 0; 
+private var pointsLoad : int = 0; //--for holding playerprefs
+static var currentShipNum : int;
 
 function Awake () {
 
@@ -14,6 +18,16 @@ function Awake () {
      }
 }
 
+function Start() {
+	//-- get score from playerprefs
+	pointsLoad = PlayerPrefs.GetInt("Points");
+	Debug.Log("pointsload = "+pointsLoad);
+
+	if (pointsLoad > 0) {
+		points = pointsLoad;
+	}
+}
+
 function LoadNextLevel(){
 	currentLevel++;
 	Debug.Log("levelscontroller is loading next level. "+currentLevel);
@@ -24,4 +38,9 @@ function LoadLevel(destinationNum : int){
 	currentLevel = destinationNum;
 	Debug.Log("levelscontroller is loading level "+destinationNum);
 	Application.LoadLevel("Level"+destinationNum);
+}
+
+function SavePoints(){
+	Debug.Log("saving points to PlayerPrefs - "+LevelsController.points);
+	PlayerPrefs.SetInt("Points",points);
 }

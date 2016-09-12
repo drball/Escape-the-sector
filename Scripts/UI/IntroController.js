@@ -14,16 +14,18 @@ public var levelReached :int = 0;
 public var LoadingDialog : GameObject; //--doesn't work
 public var InfoDialog : GameObject;
 private var LevelsController : LevelsController;
+public var PointsText : GameObject;
+
 
 function Start() {
 	// FadingScript = GetComponent.<FadingScript>();
 
 	IntroTextObj.SetActive(false);
-
 	MenuUI.SetActive(false);
 	InfoDialog.SetActive(false);
 
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
+	
 
 	LoadingDialog.SetActive(false);
 
@@ -49,10 +51,12 @@ function Start() {
 		levelButtonNum++;
 	}
 
-	yield WaitForSeconds(2);
+	//--show score
+	PointsText.GetComponent.<Text>().text = LevelsController.points.ToString();
+
+	yield WaitForSeconds(2); // why?
 
 	IntroTextObj.SetActive(true);
-
 
 }
 
