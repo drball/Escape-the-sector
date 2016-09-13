@@ -5,7 +5,7 @@ public var numLevels : int;
 public var currentLevel : int;
 static var points : int = 0; 
 private var pointsLoad : int = 0; //--for holding playerprefs
-static var currentShipNum : int;
+static var currentShipNum : int = 0; //--the chosen ship
 
 function Awake () {
 

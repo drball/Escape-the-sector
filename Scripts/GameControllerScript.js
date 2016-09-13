@@ -31,7 +31,7 @@ private var TimerScript : TimerScript;
 
 function Start () {
 
-	// SceneManager.UnloadScene("Intro");
+	Debug.Log("the character chosen was "+PlayerSelectController.currentCharacterNum);
 
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
@@ -41,6 +41,8 @@ function Start () {
 	SpecialPlayerEffectScript = Player.GetComponent.<SpecialPlayerEffectScript>();
 	DarkBg.SetActive(false);
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
+
+
 
 	StartLevel();
 	
