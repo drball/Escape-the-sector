@@ -13,7 +13,7 @@ private var dz : float;
 
 function Awake () {
 
-	target = GameObject.Find("Player");
+	target = GameObject.FindWithTag ("Player");
 
 	dx = transform.position.x - target.transform.position.x;
     dz = transform.position.z - target.transform.position.z;

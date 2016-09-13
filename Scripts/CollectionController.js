@@ -5,7 +5,7 @@ private var playerController : SpecialPlayerEffectScript;
 public var PointsText : GameObject;
 
 function Start () {
-	playerController = GameObject.Find("Player").GetComponent.<SpecialPlayerEffectScript>();
+	playerController = GameObject.FindWithTag("Player").GetComponent.<SpecialPlayerEffectScript>();
 }
 
 function SetSpecialStatus() {

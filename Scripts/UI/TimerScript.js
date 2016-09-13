@@ -118,3 +118,12 @@ function ResetTimer () {
 	seconds = startSeconds;
 	endStatus = 0;
 }
+
+function FixedUpdate () {
+
+	if(Input.GetKey("t")){
+		minutes = 0;
+		seconds = 10;
+	}
+
+}

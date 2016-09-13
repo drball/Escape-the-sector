@@ -7,7 +7,8 @@ private var bulletDelay : float = 0.4;
 public var rb : Rigidbody;
 private var startYPos : float;
 private var rotationInitial : Vector3;
-public var ExplosionsContainer : GameObject;
+private var PlayerExplosions : GameObject;
+private var StarsParticles : GameObject;
 
 public var Vfx : GameObject;
 public var isAlive : boolean = true;
@@ -23,6 +24,20 @@ function Awake () {
 
 	startYPos = transform.position.y;
 
+}
+
+function Start() {
+	//--setup the container for player explosions
+	PlayerExplosions = Instantiate(Resources.Load("PlayerExplosions", GameObject),
+				transform.position, 
+				transform.rotation);
+	PlayerExplosions.transform.parent = transform;
+
+	//--setup the stars that follow the player (a bit ahead)
+	StarsParticles = Instantiate(Resources.Load("StarsParticles", GameObject),
+				Vector3(transform.position.x, transform.position.y-43, transform.position.z-64), 
+				 Quaternion.Euler(Vector3(270, transform.rotation.y, transform.rotation.z)));
+	StarsParticles.transform.parent = transform;
 }
 
 
@@ -54,7 +69,7 @@ function FixedUpdate () {
 function PlayerDie(){
 	isAlive = false;
 
-	ExplosionsContainer.SetActive(true);
+	PlayerExplosions.SetActive(true);
 	
 	Vfx.SetActive(false);
 }
@@ -77,7 +92,7 @@ function PlayerReset() {
 	isAlive = true;
 	gameObject.SetActive(true);
 	Vfx.SetActive(true);
-	ExplosionsContainer.SetActive(false);
+	PlayerExplosions.SetActive(false);
 
 	rb.velocity = Vector3.zero;
 
