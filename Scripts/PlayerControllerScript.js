@@ -38,6 +38,7 @@ function Start() {
 				Vector3(transform.position.x, transform.position.y-43, transform.position.z-64), 
 				 Quaternion.Euler(Vector3(270, transform.rotation.y, transform.rotation.z)));
 	StarsParticles.transform.parent = transform;
+
 }
 
 

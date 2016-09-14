@@ -21,7 +21,7 @@ function Start () {
 
 	collectionController = GameObject.Find("GameController").GetComponent.<CollectionController>();
 
-	Player = GameObject.Find("Player");
+	Player = GameObject.FindWithTag("Player");
 
 	forcefieldRenderer = GateForcefield.GetComponent.<MeshRenderer>();
 

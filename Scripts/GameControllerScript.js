@@ -42,8 +42,6 @@ function Start () {
 	DarkBg.SetActive(false);
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 
-
-
 	StartLevel();
 	
 }
