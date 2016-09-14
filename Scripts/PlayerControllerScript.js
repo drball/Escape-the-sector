@@ -5,7 +5,7 @@ private var fireFrom : GameObject;
 private var gameController : GameControllerScript;
 private var bulletDelay : float = 0.4;
 public var rb : Rigidbody;
-private var startYPos : float;
+public var startYPos : float = 0;
 private var rotationInitial : Vector3;
 private var PlayerExplosions : GameObject;
 private var StarsParticles : GameObject;
@@ -27,11 +27,16 @@ function Awake () {
 }
 
 function Start() {
+
+	Debug.Log("creating a player explosion");
 	//--setup the container for player explosions
 	PlayerExplosions = Instantiate(Resources.Load("PlayerExplosions", GameObject),
 				transform.position, 
 				transform.rotation);
 	PlayerExplosions.transform.parent = transform;
+	PlayerExplosions.SetActive(false);
+
+	Debug.Log("just created player explosion");
 
 	//--setup the stars that follow the player (a bit ahead)
 	StarsParticles = Instantiate(Resources.Load("StarsParticles", GameObject),
@@ -90,14 +95,22 @@ function HideVFX(){
 }
 
 function PlayerReset() {
+	Debug.Log("Doing player reset");
 	isAlive = true;
 	gameObject.SetActive(true);
 	Vfx.SetActive(true);
-	PlayerExplosions.SetActive(false);
+
+	if(PlayerExplosions){
+		//--might not have been instantiated yet - depending on the order scripts load
+		PlayerExplosions.SetActive(false);
+	}
+	
 
 	rb.velocity = Vector3.zero;
 
 	rb.angularVelocity = Vector3.zero;
+
+	Debug.Log("moving player to start location");
 
 	//--move player to start location
 	transform.position = Vector3(
@@ -107,7 +120,6 @@ function PlayerReset() {
 	);
 
 	transform.rotation = gameController.StartLocationObj.transform.rotation;
-
-	// transform.position = playerStartPos;
-	// transform.rotation = playerStartRotation;
 }
+
+

@@ -36,8 +36,10 @@ function StartSpecialEffect(){
 function StopSpecialEffect(){
 	//--stop the particles
 
-	SpecialParticleObj.GetComponent.<ParticleSystem>().emissionRate = 0;
-
+	if(SpecialParticleObj){
+		SpecialParticleObj.GetComponent.<ParticleSystem>().emissionRate = 0;
+	}
+	
 	//--hide particles
 	yield WaitForSeconds(2);
 	

@@ -14,36 +14,57 @@ public var collectablesCollected : int;
 public var LoadingDialog : GameObject;
 public var StartLocationObj : GameObject;
 public var PointsText : GameObject;
-public var Player : GameObject;
+private var Player : GameObject;
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
 public var CompleteGameDialog : GameObject;
 public var LevelCompletedText : GameObject;
 public var DarkBg : GameObject;
-private var CameraShakeScript : CameraShakeScript;
-private var CollectionScript : CollectionController;
-private var SpecialPlayerEffectScript : SpecialPlayerEffectScript;
-private var LevelsController : LevelsController;
 
 //--scripts
 private var PlayerScript : PlayerControllerScript;
 private var TimerScript : TimerScript;
+private var CameraShakeScript : CameraShakeScript;
+private var CollectionScript : CollectionController;
+private var SpecialPlayerEffectScript : SpecialPlayerEffectScript;
+private var LevelsController : LevelsController;
+private var CameraFollowPlayer : CameraFollowPlayer;
+
+function Awake(){
+	Player = LoadCharacter();
+}
 
 function Start () {
 
 	Debug.Log("the character chosen was "+PlayerSelectController.currentCharacterNum);
 
+	StartLocationObj = GameObject.Find("StartDummy");
+	
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
 	TimerScript = GetComponent.<TimerScript>();
-	StartLocationObj = GameObject.Find("StartDummy");
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	CollectionScript = GetComponent.<CollectionController>();
 	SpecialPlayerEffectScript = Player.GetComponent.<SpecialPlayerEffectScript>();
 	DarkBg.SetActive(false);
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
+	CameraFollowPlayer = GameObject.FindWithTag("MainCamera").GetComponent.<CameraFollowPlayer>();
 
 	StartLevel();
+
+	CameraFollowPlayer.CameraSetup();
 	
+}
+
+function LoadCharacter(){
+
+	Debug.Log("add player "+PlayerSelectController.characters[PlayerSelectController.currentCharacterNum]);
+
+	var PlayerCharacter : GameObject = Instantiate(Resources.Load(PlayerSelectController.characters[PlayerSelectController.currentCharacterNum], GameObject),
+			Vector3(0,0,0), 
+			Quaternion.identity);
+	PlayerCharacter.transform.parent = transform;
+
+	return PlayerCharacter;
 }
 
 function Update () {
@@ -131,7 +152,7 @@ function LevelCompleted () {
 
 	//--save the colletables - if it's greater than we had
 	var savedProgress : int = PlayerPrefs.GetInt("Level"+LevelsController.currentLevel+"StarsCollected");
-	Debug.Log("loading progress - level:"+LevelsController.currentLevel+" has progress: "+savedProgress);
+	// Debug.Log("loading progress - level:"+LevelsController.currentLevel+" has progress: "+savedProgress);
 
 	if( collectablesCollected > savedProgress){
 		Debug.Log("saving level "+LevelsController.currentLevel);

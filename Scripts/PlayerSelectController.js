@@ -1,7 +1,8 @@
 ﻿#pragma strict
 
 private var LevelsController : LevelsController;
-static var currentCharacterNum : int = 0;
+static var currentCharacterNum : int = 1;
+static var characters : String[] = ["ShipDefault", "ShipSkimmer"];   
 
 function Start () {
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
