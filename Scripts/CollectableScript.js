@@ -6,6 +6,7 @@ For a collectable object - normal and special
 
 private var gameController : GameControllerScript;
 private var collectionController : CollectionController;
+private var PointsController : PointsController;
 private var isCollectable : boolean = true;
 private var collectionSfx : AudioSource;
 public var vfxObj : GameObject;
@@ -19,6 +20,8 @@ function Start () {
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 
 	collectionController = GameObject.Find("GameController").GetComponent.<CollectionController>();
+
+	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 	
 	collectionSfx = GetComponent.<AudioSource>();
 
@@ -60,7 +63,7 @@ function OnTriggerEnter(other: Collider)
 			ReactivateCollectable();
 	    } else {
 	    	//--increase score 
-	    	gameController.IncreasePoints();
+	    	PointsController.IncreasePoints();
 
 	    	Destroy(gameObject,2);
 	    }

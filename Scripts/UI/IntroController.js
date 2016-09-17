@@ -14,7 +14,6 @@ public var levelReached :int = 0;
 public var LoadingDialog : GameObject; //--doesn't work
 public var InfoDialog : GameObject;
 private var LevelsController : LevelsController;
-public var PointsText : GameObject;
 
 
 function Start() {
@@ -50,9 +49,6 @@ function Start() {
 
 		levelButtonNum++;
 	}
-
-	//--show score
-	PointsText.GetComponent.<Text>().text = LevelsController.points.ToString();
 
 	yield WaitForSeconds(2); // why?
 

@@ -13,7 +13,6 @@ public var collectablesCollected : int;
 //--objects
 public var LoadingDialog : GameObject;
 public var StartLocationObj : GameObject;
-public var PointsText : GameObject;
 private var Player : GameObject;
 public var CompleteLevelDialog : GameObject;
 public var FailLevelDialog : GameObject;
@@ -28,6 +27,7 @@ private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
 private var SpecialPlayerEffectScript : SpecialPlayerEffectScript;
 private var LevelsController : LevelsController;
+private var PointsController : PointsController;
 private var CameraFollowPlayer : CameraFollowPlayer;
 
 function Awake(){
@@ -47,6 +47,7 @@ function Start () {
 	SpecialPlayerEffectScript = Player.GetComponent.<SpecialPlayerEffectScript>();
 	DarkBg.SetActive(false);
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
+	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 	CameraFollowPlayer = GameObject.FindWithTag("MainCamera").GetComponent.<CameraFollowPlayer>();
 
 	StartLevel();
@@ -117,14 +118,7 @@ function PauseGame (action : boolean) {
 	}
 }
 
-function IncreasePoints() {
-	LevelsController.points += 10;
 
-	Debug.Log("increase score");
-
-	//--show score
-	PointsText.GetComponent.<Text>().text = LevelsController.points.ToString();
-}
 
 function ExitReached() {
 	if(PlayerScript.isAlive == true) {
@@ -159,7 +153,7 @@ function LevelCompleted () {
 		PlayerPrefs.SetInt("Level"+LevelsController.currentLevel+"StarsCollected",collectablesCollected);
 	}
 
-	LevelsController.SavePoints(); //--save points to playerprefs
+	PointsController.SavePoints(); //--save points to playerprefs
 
 	yield WaitForSeconds(2);
 

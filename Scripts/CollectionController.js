@@ -2,7 +2,7 @@
 
 public var specialStatus: boolean = false;
 private var playerController : SpecialPlayerEffectScript;
-public var PointsText : GameObject;
+// public var PointsText : GameObject;
 
 function Start () {
 	playerController = GameObject.FindWithTag("Player").GetComponent.<SpecialPlayerEffectScript>();

@@ -46,6 +46,11 @@ function Start() {
 
 }
 
+function Update(){
+
+	Debug.Log("speed "+rb.velocity.magnitude);
+}
+
 
 function FixedUpdate () {
 
@@ -104,7 +109,6 @@ function PlayerReset() {
 		//--might not have been instantiated yet - depending on the order scripts load
 		PlayerExplosions.SetActive(false);
 	}
-	
 
 	rb.velocity = Vector3.zero;
 

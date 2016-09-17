@@ -3,9 +3,7 @@
 
 public var numLevels : int;
 public var currentLevel : int;
-static var points : int = 0; 
-private var pointsLoad : int = 0; //--for holding playerprefs
-// static var currentShipNum : int = 0; //--the chosen ship
+
 
 function Awake () {
 
@@ -19,13 +17,7 @@ function Awake () {
 }
 
 function Start() {
-	//-- get score from playerprefs
-	pointsLoad = PlayerPrefs.GetInt("Points");
-	Debug.Log("pointsload = "+pointsLoad);
 
-	if (pointsLoad > 0) {
-		points = pointsLoad;
-	}
 }
 
 function LoadNextLevel(){
@@ -40,7 +32,3 @@ function LoadLevel(destinationNum : int){
 	Application.LoadLevel("Level"+destinationNum);
 }
 
-function SavePoints(){
-	Debug.Log("saving points to PlayerPrefs - "+LevelsController.points);
-	PlayerPrefs.SetInt("Points",points);
-}

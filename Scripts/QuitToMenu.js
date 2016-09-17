@@ -1,11 +1,11 @@
 #pragma strict
 import UnityEngine.SceneManagement;
 
-private var LevelsController : LevelsController;
+private var PointsController : PointsController;
 
 function Start () {
 
-	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
+	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 }
 
 function Update () {
@@ -20,6 +20,6 @@ function Update () {
 function LoadMainMenuScene () {
 
 	Debug.Log("go to intro");
-	LevelsController.SavePoints(); //--save points to playerprefs
+	PointsController.SavePoints(); //--save points to playerprefs
 	SceneManager.LoadScene("Intro");
 }
