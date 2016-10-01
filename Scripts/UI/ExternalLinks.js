@@ -6,7 +6,7 @@ function twitterBtnAction(){
 }
 
 function websiteBtnAction(){
-	Application.OpenURL("http://www.daviddickball.uk");
+	Application.OpenURL("http://daviddickball.uk/tag/escape-the-sector/");
 }
 
 function newsletterBtnAction(){

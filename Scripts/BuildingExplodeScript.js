@@ -11,10 +11,12 @@ public var BuildingDestroyed : GameObject;
 public var Particles : GameObject;
 public var ExplodeInView : boolean; //--only explode when close to player
 
+
 private var CameraShakeScript : CameraShakeScript;
 private var objRenderer  : Renderer;
 private var isVisible : boolean;
 private var explodeSfx : AudioSource;
+private var Camera : Camera;
 
 function Awake () {
 	BeamObj.SetActive(false);
@@ -28,6 +30,7 @@ function Awake () {
 		BuildingDestroyed.SetActive(false);
 	}
 
+	Camera = GameObject.Find("MainCamera").GetComponent.<Camera>();
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 }
 
@@ -50,6 +53,21 @@ function CountdownFinished(){
 		//--because this was called some time ago, check we're still active
 		doAnimation();
 	}
+}
+
+function isTopOfScreen(){
+
+	var viewPos: Vector3 = Camera.WorldToViewportPoint(BuildingNormal.transform.position);
+
+	Debug.Log("screen pos = "+viewPos.y);
+
+	if(viewPos.y > 0.25){
+		return true;
+	} else {
+		return false;
+		Debug.Log("not top of screen");
+	}
+	
 }
 
 function doAnimation(){
@@ -124,5 +142,8 @@ function BecomeVisible() {
 	//--objecgt is now visible
 	// Debug.Log("visible - now explode");
 
-	Invoke("CountdownFinished", SecondsCountdown);
+	if(isTopOfScreen()){
+		Invoke("CountdownFinished", SecondsCountdown);
+	}
+	
 }

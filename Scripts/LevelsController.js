@@ -27,8 +27,15 @@ function LoadNextLevel(){
 }
 
 function LoadLevel(destinationNum : int){
+	if(!destinationNum){
+		destinationNum = 1;
+	}
 	currentLevel = destinationNum;
 	Debug.Log("levelscontroller is loading level "+destinationNum);
 	Application.LoadLevel("Level"+destinationNum);
 }
 
+function SelectLevel(destinationNum : int){
+	currentLevel = destinationNum;
+	Application.LoadLevel("playerSelect");
+}

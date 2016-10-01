@@ -48,7 +48,7 @@ function Start() {
 
 function Update(){
 
-	Debug.Log("speed "+rb.velocity.magnitude);
+	// Debug.Log("speed "+rb.velocity.magnitude);
 }
 
 

@@ -47,3 +47,9 @@ function SavePoints(){
 	Debug.Log("saving points to PlayerPrefs - "+points);
 	PlayerPrefs.SetInt("Points",points);
 }
+
+function RemovePoints(removeAmt : int){
+	points -= removeAmt;
+	UpdateScore();
+	SavePoints();
+}

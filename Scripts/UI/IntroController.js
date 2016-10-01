@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 import UnityEngine.UI;
 import UnityEngine.SceneManagement;
 
@@ -72,7 +72,6 @@ function LoadLevelBtnPressed(levelNum : int){
 	LoadingDialog.SetActive(true); 
 
 	WaitThenLoadLevel(levelNum);
-
 }
 
 function InfoPressed(){
@@ -89,7 +88,7 @@ function InfoClosedPressed(){
 function WaitThenLoadLevel(levelNum : int){
 	//--can't do a yield in the function we call from a button!
 	yield WaitForSeconds(0.25);
-	LevelsController.LoadLevel(levelNum);
+	LevelsController.SelectLevel(levelNum);
 }
 
 function ResetPlayerPrefs() {

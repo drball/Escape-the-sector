@@ -6,9 +6,9 @@ private var followSpeedInitial : float = 100; //--super fast
 private var followSpeed : float = followSpeedInitial;
 private var cameraDistance : float;
 
-private var dx : float = -46;
+private var dx : float = -73.7;//-46;
 private var dy : float = 205;
-private var dz : float = -71;
+private var dz : float = -69.8;//-71;
 
 
 function CameraSetup () {
@@ -35,10 +35,15 @@ function CenterOnPlayer () {
 
 function Update () {
 
+	//--uncomment this to test best position of camera relative to player
+	// var dxTest = transform.position.x - target.transform.position.x;
+	// var dzTest = transform.position.z - target.transform.position.z;
+	// Debug.Log("dx = "+dxTest+" dz = "+dzTest);
+
+
 	if(target) {
 		//--to lerp to the object smoothly
 		transform.position = Vector3.Lerp(transform.position, Vector3(target.transform.position.x + dx, dy, target.transform.position.z + dz), followSpeed * Time.deltaTime);
-		// transform.position = Vector3.Lerp(transform.position, Vector3(target.transform.position.x + dx, dy, target.transform.position.z), followSpeed * Time.deltaTime);
 	}
 	
 }

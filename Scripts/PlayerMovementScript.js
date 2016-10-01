@@ -10,12 +10,18 @@ private var rb : Rigidbody;
 public var ParticleThrustL : GameObject;
 public var ParticleThrustR : GameObject;
 
+private var ParticleThrustSystemL : ParticleSystem;
+private var ParticleThrustSystemR : ParticleSystem;
+
 function Start () {
 
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	PlayerController = GetComponent.<PlayerControllerScript>();
 	rb = GetComponent.<Rigidbody>();
+
+	ParticleThrustSystemL = ParticleThrustL.GetComponent.<ParticleSystem>();
+	ParticleThrustSystemR = ParticleThrustR.GetComponent.<ParticleSystem>();
 }
 
 function Update () {
@@ -63,10 +69,10 @@ function FixedUpdate () {
 			rb.AddRelativeForce (Vector3.forward * speed);
 	
 			
-			ParticleThrustL.GetComponent.<ParticleSystem>().emissionRate = 100;
+			ParticleThrustSystemL.emissionRate = 100;
 
 		} else {
-			ParticleThrustL.GetComponent.<ParticleSystem>().emissionRate = 0;
+			ParticleThrustSystemL.emissionRate = 0;
 		}
 
 		if(Input.GetKey("right") || Input.GetKey("d") || ClickedRight == true)
@@ -75,10 +81,10 @@ function FixedUpdate () {
 
 			rb.AddRelativeForce (Vector3.forward * speed);
 	
-			ParticleThrustR.GetComponent.<ParticleSystem>().emissionRate = 100;
+			ParticleThrustSystemR.emissionRate = 100;
 			
 		} else {
-			ParticleThrustR.GetComponent.<ParticleSystem>().emissionRate = 0;
+			ParticleThrustSystemR.emissionRate = 0;
 		}
 		
 		

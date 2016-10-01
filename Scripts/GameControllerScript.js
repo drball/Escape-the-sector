@@ -22,6 +22,7 @@ public var DarkBg : GameObject;
 
 //--scripts
 private var PlayerScript : PlayerControllerScript;
+private var PlayerMovementScript : PlayerMovementScript;
 private var TimerScript : TimerScript;
 private var CameraShakeScript : CameraShakeScript;
 private var CollectionScript : CollectionController;
@@ -41,6 +42,7 @@ function Start () {
 	StartLocationObj = GameObject.Find("StartDummy");
 	
 	PlayerScript = Player.GetComponent.<PlayerControllerScript>();
+	PlayerMovementScript = Player.GetComponent.<PlayerMovementScript>();
 	TimerScript = GetComponent.<TimerScript>();
 	CameraShakeScript = GameObject.Find("MainCamera").GetComponent.<CameraShakeScript>();
 	CollectionScript = GetComponent.<CollectionController>();
@@ -58,9 +60,14 @@ function Start () {
 
 function LoadCharacter(){
 
-	Debug.Log("add player "+PlayerSelectController.characters[PlayerSelectController.currentCharacterNum]);
+	Debug.Log("add player "+PlayerSelectController.currentCharacterName);
 
-	var PlayerCharacter : GameObject = Instantiate(Resources.Load(PlayerSelectController.characters[PlayerSelectController.currentCharacterNum], GameObject),
+	//--if no character, fallback to default
+	if(!PlayerSelectController.currentCharacterName){
+		PlayerSelectController.currentCharacterName = "ShipFalko";
+	}
+
+	var PlayerCharacter : GameObject = Instantiate(Resources.Load(PlayerSelectController.currentCharacterName, GameObject),
 			Vector3(0,0,0), 
 			Quaternion.identity);
 	PlayerCharacter.transform.parent = transform;
@@ -129,9 +136,14 @@ function ExitReached() {
 function LevelCompleted () {
 	//--player has reached exit. Show options
 
+	PlayerScript.isAlive = false;
+
 	TimerScript.EndTimer();
 
 	PlayerScript.HideVFX();
+
+	PlayerMovementScript.ParticleThrustL.GetComponent.<ParticleSystem>().emissionRate = 0;
+	PlayerMovementScript.ParticleThrustR.GetComponent.<ParticleSystem>().emissionRate = 0;
 
 	CollectionScript.specialStatus = false;
 	SpecialPlayerEffectScript.StopSpecialEffect();
@@ -219,6 +231,8 @@ function LevelFailed () {
 function ResetLevel () {
 
 	Debug.Log("resetting level! c");
+
+	PlayerScript.isAlive = true;
 
 	//--hide all dialogs
 	CompleteLevelDialog.SetActive(false);
