@@ -24,11 +24,11 @@ private var characterTitles : String[] = [
 	];
 private var characterPrices : int[] = [
 	0,
-	1500,
-	1500,
-	2000,
+	2500,
+	2500,
 	3500,
-	3500
+	4500,
+	4500
 ];
 
 //--game objects 
@@ -45,12 +45,12 @@ function Start () {
 	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 
 	BoughtText.SetActive(false);
-
+	LevelsController.HideLoadingDialog();
 	
 
 	// characterUnlockedStatus = new boolean[characters.length];
 
-Debug.Log("character2 = "+characters[2]);
+	Debug.Log("character2 = "+characters[2]);
 
 	
 	//--save the playerprefs to an array we can use 

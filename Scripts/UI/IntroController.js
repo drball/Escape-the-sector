@@ -11,7 +11,7 @@ public var IntroTextObj : GameObject;
 public var MenuUI : GameObject;
 public var levelButtons : GameObject[];
 public var levelReached :int = 0;
-public var LoadingDialog : GameObject; //--doesn't work
+
 public var InfoDialog : GameObject;
 private var LevelsController : LevelsController;
 
@@ -24,9 +24,7 @@ function Start() {
 	InfoDialog.SetActive(false);
 
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
-	
-
-	LoadingDialog.SetActive(false);
+	LevelsController.HideLoadingDialog();
 
 	//--load the level reached from playerprefs
 	var levelReachedLoad : int = PlayerPrefs.GetInt("levelReached");
@@ -69,7 +67,7 @@ function LoadLevelBtnPressed(levelNum : int){
 	Debug.Log("level button pressed");
 
 	//--menu button pressed
-	LoadingDialog.SetActive(true); 
+	LevelsController.ShowLoadingDialog();
 
 	WaitThenLoadLevel(levelNum);
 }

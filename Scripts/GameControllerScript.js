@@ -11,7 +11,6 @@ private var maxCollectables : int = 3;
 public var collectablesCollected : int;
 
 //--objects
-public var LoadingDialog : GameObject;
 public var StartLocationObj : GameObject;
 private var Player : GameObject;
 public var CompleteLevelDialog : GameObject;
@@ -51,6 +50,8 @@ function Start () {
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 	CameraFollowPlayer = GameObject.FindWithTag("MainCamera").GetComponent.<CameraFollowPlayer>();
+
+	LevelsController.HideLoadingDialog();
 
 	StartLevel();
 
@@ -207,7 +208,7 @@ function PlayAgainSelected() {
 	//-- player has failed the level and is trying again
 	Debug.Log("clicked playing again");
 
-	LoadingDialog.SetActive(true);
+	LevelsController.ShowLoadingDialog();
 
 	Application.LoadLevel(Application.loadedLevel); //--easier than resetting all vars
 }
@@ -250,7 +251,7 @@ function ResetLevel () {
 
 	TimerScript.ResetTimer();
 
-	LoadingDialog.SetActive(false);
+	LevelsController.HideLoadingDialog();
 }
 
 

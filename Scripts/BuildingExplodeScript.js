@@ -59,7 +59,7 @@ function isTopOfScreen(){
 
 	var viewPos: Vector3 = Camera.WorldToViewportPoint(BuildingNormal.transform.position);
 
-	Debug.Log("screen pos = "+viewPos.y);
+	// Debug.Log("screen pos = "+viewPos.y);
 
 	if(viewPos.y > 0.25){
 		return true;
