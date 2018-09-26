@@ -50,8 +50,8 @@ function Start () {
 	LevelsController = GameObject.Find("LevelsController").GetComponent.<LevelsController>();
 	PointsController = GameObject.Find("PointsController").GetComponent.<PointsController>();
 	CameraFollowPlayer = GameObject.FindWithTag("MainCamera").GetComponent.<CameraFollowPlayer>();
-
 	LevelsController.HideLoadingDialog();
+	SendMessage("LoadedLevel",LevelsController.currentLevel);
 
 	StartLevel();
 
@@ -66,6 +66,8 @@ function LoadCharacter(){
 	//--if no character, fallback to default
 	if(!PlayerSelectController.currentCharacterName){
 		PlayerSelectController.currentCharacterName = "ShipFalko";
+	}else {
+		SendMessage("ChosenPlayer", PlayerSelectController.currentCharacterName);
 	}
 
 	var PlayerCharacter : GameObject = Instantiate(Resources.Load(PlayerSelectController.currentCharacterName, GameObject),
